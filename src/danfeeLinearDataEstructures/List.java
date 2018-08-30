@@ -1,6 +1,6 @@
 package danfeeLinearDataEstructures;
 
-public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q> {
+public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q>, DanfeeQueue<Q> {
 
 	/**
 	 * Size indicates Structure's size
@@ -205,6 +205,33 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q> {
 	@Override
 	public int getSize() {
 		return size + 1;
+	}
+
+	// TODO QUEUE
+	// ---------------------------------------------------------------
+	// -----------------------------QUEUE-----------------------------
+	// ---------------------------------------------------------------
+	
+	@Override
+	public void enQueue(Q object) {
+		Node <Q> node = new Node<Q> (object, this.first);
+		first = node;
+		size++;
+	}
+
+	@Override
+	public Q deQueue() throws Exception {
+		// TODO Auto-generated method stub
+		if(this.isEmpty())
+		{
+			throw new Exception("List is empty");
+		}else{
+			Node <Q> nextNode = first.getNext();
+			Q val = first.getVal();
+			first = nextNode;
+			return val;
+		}
+		
 	}
 
 }
