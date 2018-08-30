@@ -35,47 +35,72 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q> {
 	// ----------------------------------------------------------------------------
 	@Override
 	public void add(Q object) {
-
-		// TODO Test it
 		this.size++;
-		Node newNode = new Node<Q>(object, null);
-		if (first == null) {
-			first.setNext(newNode);
-		} else {
-			Node next = first;
-			while (next != null) {
-				next = next.getNext();
+		Node<Q> newNode = new Node<Q>(object, first);
+		this.first = newNode;
+	}
 
-				if (next == null) {
-					next = newNode;
+	@Override
+	public void insertAt(Q object, int index) throws Exception {
+
+		if (index == 0) {
+
+			Node<Q> headNode = new Node<Q>(object, first);
+			this.first = headNode;
+
+		} else {
+			if (index > size || index < 0) {
+				throw new ArrayIndexOutOfBoundsException(index);
+			} else {
+				Node<Q> previousNode = first;
+				Node<Q> headNode = first.getNext();
+				for (int i = 1; i <= index; i++) {
+					previousNode = headNode;
+					headNode = headNode.getNext();
 				}
+				previousNode.setNext(new Node<Q>(object, headNode));
 			}
+		}
+
+	}
+
+	@Override
+	public void remove(int index) throws Exception {
+		
+		if (this.isEmpty()) {
+			throw new Exception("List is empty");
+		} else if (this.size < index) {
+			throw new ArrayIndexOutOfBoundsException(index);
+		} else {
+			Node<Q> previousNode = first;
+			Node<Q> headNode = first.getNext();
+			for (int i = 1; i <= index; i++) {
+				previousNode = headNode;
+				headNode = headNode.getNext();
+			}
+			previousNode.setNext(headNode.getNext());
 		}
 	}
 
 	@Override
-	public void remove(int index) throws ArrayIndexOutOfBoundsException {
-		// TODO Test it
+	public Q get(int index) throws Exception {
 
-		if (this.size < index) {
+		if (this.isEmpty()) {
+			throw new Exception("List is empty()");
+		} else if (index > size || index < 0) {
 			throw new ArrayIndexOutOfBoundsException(index);
 		}
 
 		int i = 0;
-		Node previous = null;
-		Node head = first;
-		Node Next = null;
+		Q val = null;
+		Node<Q> temp = first;
+
 		while (i++ <= index) {
-			previous = head;
-//			head = 
+			val = first.getVal();
+			temp = temp.getNext();
 		}
 
-	}
-
-	@Override
-	public void get(int index) {
-		// TODO Auto-generated method stub
-
+		return val;
 	}
 
 	// TODO STACK
@@ -87,7 +112,7 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q> {
 	public void push(Q value) throws Exception {
 
 		if (hasOverFlow && isFull()) {
-			throw new Exception ("Stack gets overFlow");
+			throw new Exception("Stack gets overFlow");
 		} else {
 			// grow stack's size
 			size++;
@@ -116,16 +141,15 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q> {
 		return value;
 	}
 
-	// TODO preguntar si uno debe controlar las excepciones aqui, por ejemplo, si es
 	// vacio uno deberia enviar una excepcion que diga que esta vacio o un null
 	// pointer pero eso se debe hacer aqui?
 	@Override
 	public Q peek() throws Exception {
-		
+
 		if (isEmpty()) {
-			
+
 			throw new Exception("Stack is empty");
-			
+
 		} else {
 			return first.getVal();
 		}
@@ -176,6 +200,11 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q> {
 	@Override
 	public void toDisableOverFlow() {
 		hasOverFlow = false;
+	}
+
+	@Override
+	public int getSize() {
+		return size + 1;
 	}
 
 }
