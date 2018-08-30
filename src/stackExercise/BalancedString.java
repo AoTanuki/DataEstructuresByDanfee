@@ -43,7 +43,7 @@ public class BalancedString {
 					
 					if(stack.isEmpty())
 					{
-						balanced = "F";
+//						balanced = "F";
 					}else
 					{
 						char bracketPoped = stack.pop().charAt(0);

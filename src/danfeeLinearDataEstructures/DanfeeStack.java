@@ -1,6 +1,6 @@
 package danfeeLinearDataEstructures;
 
-public interface DanfeeStack <P> {
+public interface DanfeeStack <P>extends ILinearDataEstructuresByDanfee<P> {
 
 	void push (P value) throws Exception;
 	
@@ -9,8 +9,6 @@ public interface DanfeeStack <P> {
 	P peek()throws Exception;
 	
 	boolean isFull();
-	
-	boolean isEmpty();
 	
 	void setOverFlow(int overFlow);
 	
