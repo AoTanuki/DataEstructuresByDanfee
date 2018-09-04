@@ -13,6 +13,7 @@ public class BalancedString {
 
 	public static void main (String[] args) throws Exception
 	{
+		System.out.println(System.getProperty("java.classpath"));
 		BufferedReader bf = new BufferedReader(new FileReader(new File("./src/stackExercise/testCases.txt")));
 		
 		int cases = Integer.parseInt( bf.readLine() );
