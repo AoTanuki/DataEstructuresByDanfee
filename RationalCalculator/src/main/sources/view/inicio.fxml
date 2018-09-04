@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.CalculatorController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -65,8 +65,8 @@
                                     <Font size="13.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="txtNumerator1" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtDenominator1" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtNumerator1" onAction="#selectedField" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtDenominator1" onAction="#selectedField" GridPane.rowIndex="3" />
                               <GridPane>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -119,8 +119,8 @@
                                     <Font size="13.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="txtNumerator2" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtDenominator2" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtNumerator2" onAction="#selectedField" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtDenominator2" onAction="#selectedField" GridPane.rowIndex="3" />
                               <GridPane>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -173,8 +173,8 @@
                                     <Font size="13.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="txtNumerator3" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtDenominator3" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtNumerator3" onAction="#selectedField" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtDenominator3" onAction="#selectedField" GridPane.rowIndex="3" />
                               <GridPane>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -227,8 +227,8 @@
                                     <Font size="13.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="txtNumerator4" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtDenominator4" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtNumerator4" onAction="#selectedField" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtDenominator4" onAction="#selectedField" GridPane.rowIndex="3" />
                               <GridPane>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -292,17 +292,17 @@
                         <Font size="55.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="butOperation1" disable="true" prefHeight="11.0" prefWidth="64.0" visible="false" GridPane.columnIndex="1">
+                  <TextField fx:id="txtOperation1" onAction="#operationFieldSelected" prefHeight="11.0" prefWidth="64.0" visible="false" GridPane.columnIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="butOperation2" visible="false" GridPane.columnIndex="3">
+                  <TextField fx:id="txtOperation2" onAction="#operationFieldSelected" visible="false" GridPane.columnIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="ButOperation3" visible="false" GridPane.columnIndex="5">
+                  <TextField fx:id="txtOperation3" onAction="#operationFieldSelected" visible="false" GridPane.columnIndex="5">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -330,6 +330,7 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -337,65 +338,73 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="butNumber1" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="1" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button fx:id="butNumber1" mnemonicParsing="false" onAction="#addNumberToFraction" prefHeight="46.0" prefWidth="60.0" text="1" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="butNumber2" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="2" GridPane.rowIndex="1">
+                  <Button fx:id="butNumber2" mnemonicParsing="false" onAction="#addNumberToFraction" prefHeight="46.0" prefWidth="60.0" text="2" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="butNumber3" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="3" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button fx:id="butNumber3" mnemonicParsing="false" onAction="#addNumberToFraction" prefHeight="46.0" prefWidth="60.0" text="3" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="butNumber4" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="4" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button fx:id="butNumber4" mnemonicParsing="false" onAction="#addNumberToFraction" prefHeight="46.0" prefWidth="60.0" text="4" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="butNumber5" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="5" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <Button fx:id="butNumber5" mnemonicParsing="false" onAction="#addNumberToFraction" prefHeight="46.0" prefWidth="60.0" text="5" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="butNumber6" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="6">
+                  <Button fx:id="butNumber6" mnemonicParsing="false" onAction="#addNumberToFraction" prefHeight="46.0" prefWidth="60.0" text="6">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="butNumber7" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="7" GridPane.columnIndex="1">
+                  <Button fx:id="butNumber7" mnemonicParsing="false" onAction="#addNumberToFraction" prefHeight="46.0" prefWidth="60.0" text="7" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="butNumber8" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="8" GridPane.columnIndex="2">
+                  <Button fx:id="butNumber8" mnemonicParsing="false" onAction="#addNumberToFraction" prefHeight="46.0" prefWidth="60.0" text="8" GridPane.columnIndex="2">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="butNumber9" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="9" GridPane.columnIndex="3">
+                  <Button fx:id="butNumber9" mnemonicParsing="false" onAction="#addNumberToFraction" prefHeight="46.0" prefWidth="60.0" text="9" GridPane.columnIndex="3">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="butNumber0" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="butNewRation" mnemonicParsing="false" prefHeight="47.0" prefWidth="49.0" rotate="90.0" text="❏|❏" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button fx:id="butNewRation" mnemonicParsing="false" onAction="#addFraction" prefHeight="47.0" prefWidth="49.0" rotate="90.0" text="❏|❏" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="butExponential" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="x²" GridPane.rowIndex="2">
+                  <Button fx:id="butNumber0" mnemonicParsing="false" onAction="#addNumberToFraction" prefHeight="46.0" prefWidth="60.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
+                  </Button>
+                  <Button fx:id="butExponential" mnemonicParsing="false" prefHeight="46.0" prefWidth="60.0" text="x²" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="butDeleteFraction" mnemonicParsing="false" onAction="#deleteFraction" prefHeight="47.0" prefWidth="49.0" text="DELETE" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="10.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </Button>
                </children>
                <GridPane.margin>
@@ -416,35 +425,53 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="butDELETE" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="DEL">
+                  <Button fx:id="butEqual" mnemonicParsing="false" onAction="#result" prefHeight="46.0" prefWidth="80.0" text="=">
                      <GridPane.margin>
                         <Insets left="19.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
                   </Button>
-                  <Button fx:id="butAC" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="AC" GridPane.columnIndex="1">
+                  <Button fx:id="butAC" mnemonicParsing="false" onAction="#clean" prefHeight="46.0" prefWidth="80.0" text="AC" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets left="19.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
                   </Button>
                   <Button fx:id="butMultiply" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="×" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="19.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
                   </Button>
-                  <Button fx:id="ButDivide" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="÷" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button fx:id="ButDivide" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="/" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="19.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
                   </Button>
                   <Button fx:id="ButPlus" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="+" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="19.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
                   </Button>
                   <Button fx:id="ButSubstract" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="19.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
                   </Button>
                </children>
                <GridPane.margin>
