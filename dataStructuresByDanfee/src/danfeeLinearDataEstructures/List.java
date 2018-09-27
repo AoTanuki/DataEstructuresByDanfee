@@ -28,6 +28,11 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q>, Danfe
 		this.first = null;
 		this.size = -1;
 	}
+	
+	@Override
+	public int getSize() {
+		return size + 1;
+	}
 
 	// TODO SIMPLE LINKED LIST
 	// ----------------------------------------------------------------------------
@@ -202,10 +207,7 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q>, Danfe
 		hasOverFlow = false;
 	}
 
-	@Override
-	public int getSize() {
-		return size + 1;
-	}
+	
 
 	// TODO QUEUE
 	// ---------------------------------------------------------------
