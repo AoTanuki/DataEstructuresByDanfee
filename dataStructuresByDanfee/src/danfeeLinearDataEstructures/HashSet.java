@@ -24,8 +24,12 @@ public class HashSet<E> implements IHashSet<E> {
 	}
 
 	public HashSet(int initialCapacity) {
+		if (initialCapacity < 1) {
+			this.capacity = 1;
+		} else {
+			this.capacity = initialCapacity;
+		}
 		this.size = 0;
-		this.capacity = initialCapacity;
 		this.loadFactor = DEFAULT_LOAD_FACTOR;
 		this.elements = (E[]) new Object[capacity];
 		this.currentLoadFactor = size / capacity;
@@ -53,20 +57,23 @@ public class HashSet<E> implements IHashSet<E> {
 	@Override
 	public boolean add(E element) {
 		boolean added = false;
-		if (this.isEmpty()) {
-			added = put(element);
+		if (element != null) {
+			if (this.isEmpty()) {
+				added = put(element);
 
-		} else {
-			if (needIncrease()) {
-				increaseCapacity();
+			} else {
+				if (needIncrease()) {
+					increaseCapacity();
+				}
+				added = put(element);
 			}
-			added = put(element);
-		}
 
-		if (added)
-			this.size++;
-		recalculateCurrentLoadFactor();
+			if (added)
+				this.size++;
+			recalculateCurrentLoadFactor();
+		}
 		return added;
+
 	}
 
 	private boolean needIncrease() {
@@ -149,16 +156,9 @@ public class HashSet<E> implements IHashSet<E> {
 	public boolean contains(Object o) {
 		int index = hashFunction((E) o);
 		boolean find = false;
-		if (this.elements[index].equals(o)) {
-			find = true;
-		} else {
-			int i = 1;
-			while (!find) {
-				index = quadraticProve((E) o, i);
-				if (this.elements[index].equals(o)) {
-					find = true;
-				}
-				i++;
+		for (int i = 0; i < elements.length; i++) {
+			if(elements[i]!=null) {
+			if(elements[i].equals(o)) find = true;
 			}
 		}
 		return find;
@@ -172,14 +172,18 @@ public class HashSet<E> implements IHashSet<E> {
 			if (this.elements[index].equals(o)) {
 				this.elements[index] = null;
 				removed = true;
-			}else {
+			} else {
 				int i = 1;
-				while (!removed) {
+				index = quadraticProve((E) o, i);
+				E target = this.elements[index];
+				while (!(target == null) && !removed) {
 					index = quadraticProve((E) o, i);
 					if (this.elements[index].equals(o)) {
 						this.elements[index] = null;
 						removed = true;
 					}
+					index = quadraticProve((E) o, i);
+					target = this.elements[index];
 					i++;
 				}
 			}

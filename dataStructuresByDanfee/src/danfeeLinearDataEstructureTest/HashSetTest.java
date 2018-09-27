@@ -113,12 +113,14 @@ class HashSetTest {
 			hash.add(mensaje[i]);
 		}
 		
-		boolean encontrados = true;
-		for (int i = 0; i < mensaje.length; i++) {
-			encontrados = encontrados && hash.contains(mensaje[i]);
-			
-		}
-		assertEquals(true, encontrados);
+		boolean encontrados = hash.contains("-1");
+//		for (int i = 0; i < mensaje.length; i++) {
+//			encontrados = encontrados && hash.contains(mensaje[i]);
+//			
+//		}
+		
+		
+		assertEquals(false, encontrados);
 		assertEquals(10000000, hash.size());
 	}
 }
