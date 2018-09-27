@@ -30,7 +30,7 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q>, Danfe
 	}
 	
 	@Override
-	public int getSize() {
+	public int size() {
 		return size + 1;
 	}
 

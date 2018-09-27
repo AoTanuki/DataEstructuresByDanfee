@@ -3,7 +3,7 @@ package danfeeLinearDataEstructures;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class HashSet<E> {
+public class HashSet<E> implements IHashSet<E> {
 
 	public static final int DEFAULT_INITIAL_CAPACITY = 16;
 	public static final float DEFAULT_LOAD_FACTOR = 0.75f;
@@ -32,24 +32,25 @@ public class HashSet<E> {
 	}
 
 	public HashSet(int initialCapacity, float loadFactor) {
-		if(initialCapacity<1) {
+		if (initialCapacity < 1) {
 			this.capacity = 1;
-		}else {
+		} else {
 			this.capacity = initialCapacity;
 		}
-		
-		if(loadFactor<=0) {
+
+		if (loadFactor <= 0) {
 			this.loadFactor = 0.1f;
-		}else if(!(loadFactor>1)) {
+		} else if (!(loadFactor > 1)) {
 			this.loadFactor = loadFactor;
 		}
-		
+
 		this.size = 0;
 		this.loadFactor = loadFactor;
 		this.elements = (E[]) new Object[capacity];
 		this.currentLoadFactor = size / capacity;
 	}
 
+	@Override
 	public boolean add(E element) {
 		boolean added = false;
 		if (this.isEmpty()) {
@@ -166,15 +167,28 @@ public class HashSet<E> {
 	public boolean remove(Object o) {
 		boolean removed = false;
 
-		int index = hashFunction((E) o);
-		if (this.elements[index].equals(o)) {
-			this.elements[index] = null;
-			removed = true;
+		if (o != null && this.contains(o)) {
+			int index = hashFunction((E) o);
+			if (this.elements[index].equals(o)) {
+				this.elements[index] = null;
+				removed = true;
+			}else {
+				int i = 1;
+				while (!removed) {
+					index = quadraticProve((E) o, i);
+					if (this.elements[index].equals(o)) {
+						this.elements[index] = null;
+						removed = true;
+					}
+					i++;
+				}
+			}
 		}
 
 		return removed;
 	}
 
+	@Override
 	public int size() {
 		return this.size;
 	}
