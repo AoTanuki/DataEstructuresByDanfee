@@ -28,10 +28,10 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q>, Danfe
 		this.first = null;
 		this.size = -1;
 	}
-	
+
 	@Override
 	public int size() {
-		return size + 1;
+		return size;
 	}
 
 	// TODO SIMPLE LINKED LIST
@@ -40,9 +40,29 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q>, Danfe
 	// ----------------------------------------------------------------------------
 	@Override
 	public void add(Q object) {
-		this.size++;
-		Node<Q> newNode = new Node<Q>(object, first);
-		this.first = newNode;
+		if (size == -1) {
+			size += 2;
+		} else {
+			this.size++;
+		}
+		if (this.first == null) {
+			Node<Q> newNode = new Node<Q>(object, first);
+			this.first = newNode;
+		} else {
+			Node<Q> previous = this.first;
+			Node<Q> head = this.first.getNext();
+			boolean added = false;
+			while (!added) {
+				if (head == null) {
+					previous.setNext(new Node(object, null));
+					added = true;
+				} else {
+					previous = head;
+					head = head.getNext();
+				}
+			}
+		}
+
 	}
 
 	@Override
@@ -64,27 +84,54 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q>, Danfe
 					headNode = headNode.getNext();
 				}
 				previousNode.setNext(new Node<Q>(object, headNode));
+
+			}
+		}
+		size++;
+	}
+
+	@Override
+	public void remove(int index) throws Exception {
+
+		if (this.isEmpty()) {
+			throw new Exception("List is empty");
+		} else if (this.size < index) {
+			throw new ArrayIndexOutOfBoundsException(index);
+		} else {
+			if (index == 0) {
+				this.first = first.getNext();
+				size--;
+			} else {
+				Node<Q> previousNode = first;
+				Node<Q> headNode = first.getNext();
+				for (int i = 1; i <= index; i++) {
+					previousNode = headNode;
+					headNode = headNode.getNext();
+				}
+				previousNode.setNext(headNode.getNext());
+				size--;
 			}
 		}
 
 	}
 
 	@Override
-	public void remove(int index) throws Exception {
-		
-		if (this.isEmpty()) {
-			throw new Exception("List is empty");
-		} else if (this.size < index) {
-			throw new ArrayIndexOutOfBoundsException(index);
-		} else {
-			Node<Q> previousNode = first;
-			Node<Q> headNode = first.getNext();
-			for (int i = 1; i <= index; i++) {
-				previousNode = headNode;
-				headNode = headNode.getNext();
+	public boolean contains(Q element) {
+		boolean isIn = false;
+
+		if (element != null && this.first != null) {
+			Node<Q> next = this.first;
+
+			while (next != null && !isIn) {
+
+				if (next.getVal().equals(element))
+					isIn = true;
+				next = next.getNext();
 			}
-			previousNode.setNext(headNode.getNext());
+
 		}
+
+		return isIn;
 	}
 
 	@Override
@@ -101,7 +148,7 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q>, Danfe
 		Node<Q> temp = first;
 
 		while (i++ <= index) {
-			val = first.getVal();
+			val = temp.getVal();
 			temp = temp.getNext();
 		}
 
@@ -171,7 +218,7 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q>, Danfe
 
 	@Override
 	public boolean isEmpty() {
-		return size == -1;
+		return (size - 1) == -1;
 	}
 
 	@Override
@@ -207,33 +254,29 @@ public class List<Q> implements DanfeeSimpleLinkedList<Q>, DanfeeStack<Q>, Danfe
 		hasOverFlow = false;
 	}
 
-	
-
 	// TODO QUEUE
 	// ---------------------------------------------------------------
 	// -----------------------------QUEUE-----------------------------
 	// ---------------------------------------------------------------
-	
+
 	@Override
 	public void enQueue(Q object) {
-		Node <Q> node = new Node<Q> (object, this.first);
-		first = node;
-		size++;
+		add(object);
 	}
 
 	@Override
 	public Q deQueue() throws Exception {
 		// TODO Auto-generated method stub
-		if(this.isEmpty())
-		{
+		if (this.isEmpty()) {
 			throw new Exception("List is empty");
-		}else{
-			Node <Q> nextNode = first.getNext();
+		} else {
+			Node<Q> nextNode = first.getNext();
 			Q val = first.getVal();
 			first = nextNode;
+			size--;
 			return val;
 		}
-		
+
 	}
 
 }
