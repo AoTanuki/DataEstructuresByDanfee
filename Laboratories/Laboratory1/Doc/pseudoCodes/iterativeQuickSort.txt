@@ -1,0 +1,91 @@
+
+//funcion principal del quicksort
+//arr es el array que se desea ordenar
+//low  es el indice de inicio
+//high es el indice final
+Funcion  quickSort ( arr, low, high )
+	
+	//como este metodo de ordenamiento por su naturaleza es recursivo, se usa un stack auxiliar
+	Dimension  stack[high-low+1]
+	//este es el tope del stack
+	Definir top Como Entero
+	top <- -1
+	//se ponen los valores iniciales del low y high en el stack
+	top <- top+1
+	stack[top] <- low
+	top <- top+1
+	stack[top] <- high
+	
+	//hacer lo siguiente mientras el stack no este vacio
+	Mientras top>=0 Hacer
+		
+		top <- top-1
+		high <- stack[top]
+		top <- top-1
+		low <- stack[top]
+		
+		Definir  pivot Como Entero
+		
+		//poner el pivote como el elemento que esta en su posicion correcta
+		//en el arreglo ordenado
+		pivot <- partition(arr,low,high)
+		
+		//Si hay elementos al lado izquierdo del pivote,
+		//entonces se pone el lado izquierdo en el stack
+		Si pivot-1 > low Entonces
+			
+			top <- top + 1
+			stack[top] = low
+			top <- top + 1
+			stack[top] = pivot-1
+		Fin Si
+		
+		//Si hay elementos al lado derecho del pivote, 
+		//entonces se pone el lado derecho en el stack
+		Si pivot+1 < high Entonces
+			top <- top + 1
+			stack[top] = pivot + 1
+			top <- top + 1
+			stack[top] = h
+		FinSi
+	Fin Mientras
+Fin Funcion
+
+// esta funcion toma el ultimo elemento como pivote,
+//posiciona el elemento pivote en su correspondiente lugar en el arreglo ordenado
+//y posiciona todos los elementos menores (que el pivote) a la izquierda del pivote 
+//y los mayores al lado derecho del pivote
+Funcion index <- partition ( arr, low, high )
+	
+	Definir pivot como entero
+	pivot <- arr[high]
+	Definir index Como entero
+	
+	//indice del elemento menor
+	index <- low-1 
+	
+	Para j<-low Hasta high-1 Con Paso 1 Hacer
+		Si arr[j]<=pivot Entonces
+			index <- index+1
+			
+			//intercambiar lo que hay en la posicion del indice 
+			//por lo que se encuentra en la posicion j
+			Definir temp como entero
+			temp <- arr[index]
+			arr[index] <- arr[j]
+			arr[j] <- temp
+		Fin Si
+	Fin Para
+	
+	//intercambiar lo que hay en la posicion index+1 en la posicion high (o pivote)
+	Definir temp Como Entero
+	temp <-- arr[i+1]
+	arr[i+1] <- arr[high]
+	arr[high] <- temp
+	
+	index <- index+1
+	
+Fin Funcion
+
+
+Adaptado de: https://www.geeksforgeeks.org/iterative-quick-sort/

@@ -1,0 +1,47 @@
+Funcion arr <- pigeonHoleSort ( arr, n )
+	
+	Definir range Como Numerica
+	
+	Definir min como Entero
+	Definir max como Entero
+	//Encontrar maximo y minimo
+	min<-arr[0]
+	max<-arr[0]
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		Si arr[i]<min Entonces
+			min = arr[i]
+		Fin Si
+		Si arr[i]>min Entonces
+			max = arr[i]
+		Fin Si
+		
+	Fin Para
+	
+	//encuentra el rango
+	Definir range como Entero
+	range<-max-min+1
+	Dimension holes[range]
+	//Llenar los holes con ceros.
+	Para i<-0 Hasta range-1 Con Paso 1 Hacer
+		holes[i]<-0
+	Fin Para
+	
+	//poner los elementos en los holes
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		holes[arr[i]-min]<-holes[arr[i]-min]+1
+	Fin Para
+	
+	//devolver los valores ordenados al arreglo
+	Definir index como Entero
+	index<-0
+	Para j<-0 Hasta range-1 Con Paso 1 Hacer
+		Mientras holes[j]<0 Hacer
+			holes[j]<-holes[j]-1
+			arr[index]<-j+min
+			index<-index+1
+		Fin Mientras
+	Fin Para
+	
+Fin Funcion
+
+adaptado de: https://www.geeksforgeeks.org/pigeonhole-sort/

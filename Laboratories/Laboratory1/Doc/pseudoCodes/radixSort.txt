@@ -1,0 +1,116 @@
+
+//es el metodo principal del ordenamiento
+Funcion arr <- radixSort ( arr, n )
+	
+	//Es el número maximo en el arreglo en representacion de bit
+	Definir  max como Entero
+	
+	
+	//hace el counting sort por cada digito.
+	//aqui se empieza a dividir de 10 en 10 hasta que el numero es
+	//más pequeño que cero
+	Definir expo como entero
+	expo<-1
+	
+	Repetir
+		countSort(arr,n,expo)
+		expo<- expo*10
+	Hasta Que max/expo<0
+	
+Fin Funcion
+
+//este metodo convierte la representacion en bits de los enteros
+//en su correspondiente float
+Funcion float <- intBitsToFloat ( int )
+	
+Fin Funcion
+
+//Este metodo convierte un float
+//en un entero que representa su estado en bits
+Funcion int <- floatToIntBits(float)
+	
+FinFuncion
+
+
+//este metodo busca el número mayor del arreglo
+//sea arr un arreglo de floats y n el numero de entradas
+Funcion max <- getMax ( arr, n )
+	
+	Definir bitMax Como Entero
+	
+	bitMax <- floatToIntBits(arr[0])
+	
+	Para i<-1 Hasta n-1  Con Paso 1  Hacer
+		
+		Definir bitTemp como entero
+		bitTemp <- floatToIntBits(arr[i])
+		
+		Si bitTemp> bitMax Entonces
+			bitMax <- bitTemp
+		Fin Si
+		
+	Fin Para
+	
+	max <- bitMax 
+Fin Funcion
+
+//sea arr una lista de floats 
+//sea n el tamaño del arreglo 
+//sea exp el exponente que indica que digito se está evaluando
+
+Funcion countSort ( arr, n, expo, )
+	
+	Dimension output[n] //arreglo de salida
+	Dimension count[10]
+	
+	Para i<-0 Hasta 9 Con Paso 1 Hacer
+		count[i] = 0
+	Fin Para
+	
+	//almacena la cuenta de ocurrencia en count[]
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		Definir bitRepre como Entero
+		bitRepre <- floatToIntBits(arr[i])
+		
+		count[(bitRepre/expo)%10] <- count[(bitRepre/expo)%10]+1
+		
+	Fin Para
+	
+	
+	//ahora se cambian lo que hay en count[i] para tener
+	//la posicion de los digitos en el output[]
+	Para i<-1 Hasta 9 Con Paso 1 Hacer
+		count[i] <- count[i] + count[i-1]
+	Fin Para
+	
+	//construir el arreglo de salida output[]
+	//con los enteros que representan al float en forma bit
+	Definir i como entero	
+	i <- n-1
+	Mientras i>=0 Hacer
+		Definir bitRepre como Entero
+		bitRepre <- floatToIntBits(arr[i])
+		
+		output[count[(bitRepre/expo)%10]-1] <- bitRepre
+		count[(bitRepre/expo)%10]<- count[(bitRepre/expo)%10]-1
+		
+		i<- i-1
+	Fin Mientras
+	
+	//copiar el arreglo output[] al arr[],
+	//hasta este punto, el arreglo tiene ordenado los
+	//floats depediendo su digito en representacion bit
+	//lo que se hace es convertir lo que esta en el output[]
+	//al float
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		arr[i] <- intBitsToFloat(output[i])
+	Fin Para
+	
+Fin Funcion
+
+
+
+Adaptado de : 
+https://www.geeksforgeeks.org/radix-sort/
+https://stackoverflow.com/questions/42303108/how-can-i-use-radix-sort-for-an-array-of-float-numbers
+https://stackoverflow.com/questions/14619653/how-to-convert-a-float-into-a-byte-array-and-vice-versa/14619742
