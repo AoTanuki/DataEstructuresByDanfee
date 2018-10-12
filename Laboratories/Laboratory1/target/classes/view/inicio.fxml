@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+   <children>
+      <GridPane layoutX="5.0" layoutY="5.0" prefHeight="386.0" prefWidth="586.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TabPane prefHeight="200.0" prefWidth="573.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Search File">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="btnSearchFile" layoutX="242.0" layoutY="118.0" mnemonicParsing="false" onAction="#searchFile" text="Search File" />
+                              <ComboBox fx:id="combTypeNumber" layoutX="381.0" layoutY="58.0" prefWidth="150.0" visibleRowCount="2" />
+                              <TextField fx:id="txtLink" layoutX="34.0" layoutY="58.0" prefHeight="25.0" prefWidth="258.0" />
+                              <Label layoutY="62.0" prefHeight="17.0" prefWidth="50.0" text="Link" />
+                              <Label layoutX="302.0" layoutY="62.0" text="Type number" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                <Tab text="Generate">
+                     <content>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="164.0" prefWidth="572.0">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="14.0" text="Size:" />
+                                    <TextField fx:id="txtInputSize" layoutX="81.0" layoutY="10.0" />
+                                    <Label layoutX="14.0" layoutY="46.0" text="Interval:" />
+                                    <TextField fx:id="txtStartInterval" layoutX="81.0" layoutY="42.0" prefHeight="8.0" prefWidth="49.0" text="Start" />
+                                    <TextField fx:id="txtEndInterval" layoutX="181.0" layoutY="42.0" prefHeight="25.0" prefWidth="49.0" text="End" />
+                                    <Label alignment="CENTER" layoutX="131.0" layoutY="46.0" prefHeight="17.0" prefWidth="50.0" text="-" />
+                                    <Label layoutX="14.0" layoutY="75.0" text="Clone number:" />
+                                    <CheckBox fx:id="checkCloneNumberYes" alignment="CENTER_RIGHT" layoutX="121.0" layoutY="75.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#disCheckCloneNumber" prefHeight="17.0" prefWidth="49.0" selected="true" text="Yes" />
+                                    <CheckBox fx:id="checkCloneNumberNo" alignment="CENTER_RIGHT" layoutX="197.0" layoutY="75.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#disCheckCloneNumber" prefHeight="17.0" prefWidth="43.0" text="No" />
+                                    <Label layoutX="14.0" layoutY="98.0" text="Numbers Type:" />
+                                    <CheckBox fx:id="checkNumberTypeFloat" alignment="CENTER_RIGHT" layoutX="121.0" layoutY="98.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#disCheckNumberType" prefHeight="17.0" prefWidth="49.0" selected="true" text="Float" />
+                                    <CheckBox fx:id="checkNumberTypeInteger" alignment="CENTER_RIGHT" layoutX="181.0" layoutY="98.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#disCheckNumberType" text="Integer" />
+                                    <Label layoutX="286.0" layoutY="14.0" text="Generation Type:" />
+                                    <Button fx:id="btnToGenerate" layoutX="491.0" layoutY="44.0" mnemonicParsing="false" onAction="#toGenerate" prefHeight="77.0" prefWidth="81.0" text="Generate" />
+                                    <CheckBox fx:id="checkGenerationSorted" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="286.0" layoutY="36.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="151.0" selected="true" text="Sorted" />
+                                    <CheckBox fx:id="checkGenerationInverted" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="286.0" layoutY="55.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="151.0" text="Inverted Sort" />
+                                    <CheckBox fx:id="checkGenerationComplety" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="286.0" layoutY="74.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="151.0" text="Completly disordered" />
+                                    <CheckBox fx:id="checkGenerationPercent" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="286.0" layoutY="98.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="151.0" text="percent messy" />
+                                    <TextField fx:id="txtGeneratonPercent" layoutX="305.0" layoutY="121.0" prefHeight="0.0" prefWidth="57.0" />
+                                    <Label layoutX="383.0" layoutY="121.0" prefHeight="17.0" prefWidth="16.0" text="\%">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Disordered set number" />
+                  <ScrollPane layoutX="6.0" layoutY="31.0" prefHeight="32.0" prefWidth="570.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="33.0" prefWidth="554.0">
+                           <children>
+                              <TextArea fx:id="txtNonSortNumbers" editable="false" layoutX="-1.0" prefHeight="38.0" prefWidth="557.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Button fx:id="btnToSort" layoutX="6.0" layoutY="84.0" mnemonicParsing="false" onAction="#toSort" prefWidth="57.0" text="Sort" />
+                  <ScrollPane layoutX="6.0" layoutY="143.0" prefHeight="32.0" prefWidth="570.0">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="33.0" prefWidth="554.0">
+                           <children>
+                              <TextArea fx:id="txtSortedNumbers" editable="false" layoutX="-1.0" prefHeight="38.0" prefWidth="557.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+                  <Label layoutX="14.0" layoutY="126.0" text="sorted set numbers" />
+                  <GridPane layoutX="91.0" layoutY="87.0" prefHeight="25.0" prefWidth="485.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="123.0" text="Algorithm" />
+                        <TextField fx:id="txtAlgorithm" disable="true" GridPane.columnIndex="1" />
+                        <TextField fx:id="txtRunTime" disable="true" GridPane.columnIndex="3" />
+                        <TextField fx:id="txtOutputSize" disable="true" GridPane.columnIndex="5" />
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="79.0" text="Runtime" GridPane.columnIndex="2" />
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="104.0" text="n-size" GridPane.columnIndex="4" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
