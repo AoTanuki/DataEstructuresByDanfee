@@ -168,11 +168,25 @@ public class Player {
 	/**
 	 * This method returns a String that contains the statistical data ordered by txt order.
 	 */
-	@Override
-	public String toString() {
+	public String savePlayerReport() {
 		return ""+name+" "+ gender+" "+age+" "+gamesPlayed+" "+minutesPlayed+" "+fieldGoalsPercentage+" "+threePointsFieldPercentage
 				+" "+freeThrowPercentage+" "+personalFouls+" "+playerImpactEstimate+" "+offensiveReboundPercentage+" "+turnoverPercentage;
 	}
+
+	
+	/** (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", gender=" + gender + ", age=" + age + ", gamesPlayed=" + gamesPlayed
+				+ ", minutesPlayed=" + minutesPlayed + ", fieldGoalsPercentage=" + fieldGoalsPercentage
+				+ ", threePointsFieldPercentage=" + threePointsFieldPercentage + ", freeThrowPercentage="
+				+ freeThrowPercentage + ", personalFouls=" + personalFouls + ", playerImpactEstimate="
+				+ playerImpactEstimate + ", offensiveReboundPercentage=" + offensiveReboundPercentage
+				+ ", turnoverPercentage=" + turnoverPercentage + "]";
+	}
+
 
 	/**
 	 * @return the name

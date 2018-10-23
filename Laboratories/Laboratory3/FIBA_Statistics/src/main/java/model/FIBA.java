@@ -204,12 +204,21 @@ public class FIBA {
 	}
 
 	/**
-	 * @param items
-	 * @return
+	 * this method create a report with all players that are referenced in each items of the given array.
+	 * @param items an array with items that contains a value and a txt index.
+	 * @return an array with the information of all players referenced in previous items.
+	 * @throws IOException 
 	 */
-	public ArrayList<String> generateReport(ArrayList<Item<Number>> items) {
+	public ArrayList<String> generateReport(ArrayList<Item<Number>> items) throws IOException {
 		// TODO implement here
-		return null;
+		ArrayList<String> report = new ArrayList<>();
+		
+		for (int i = 0; i < items.size(); i++) {
+			Player player = getPlayer(items.get(i).getTxtIndex());
+			report.add(player.toString());
+		}
+		
+		return report;
 	}
 
 	/**
