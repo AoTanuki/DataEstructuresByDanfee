@@ -122,10 +122,21 @@ public class FIBA {
 	/**
 	 * @param name
 	 * @return
+	 * @throws IOException 
+	 * @throws PlayerNotFoundException 
 	 */
-	public Player searchPlayer(String name) {
-		// TODO implement here
-		return null;
+	public Player searchPlayer(String name) throws IOException, PlayerNotFoundException {
+		// TODO test it
+		Player player = null;
+		
+		if(playersAdded.containsKey(name))
+		{
+			player = getPlayer(playersAdded.get(name));
+		}else {
+			throw new PlayerNotFoundException("The player that is called: "+name+" does not found in our system");
+		}
+		
+		return player;
 	}
 
 	/**
@@ -210,14 +221,13 @@ public class FIBA {
 	 * @throws IOException 
 	 */
 	public ArrayList<String> generateReport(ArrayList<Item<Number>> items) throws IOException {
-		// TODO implement here
+		// TODO test it
 		ArrayList<String> report = new ArrayList<>();
 		
 		for (int i = 0; i < items.size(); i++) {
 			Player player = getPlayer(items.get(i).getTxtIndex());
 			report.add(player.toString());
 		}
-		
 		return report;
 	}
 
