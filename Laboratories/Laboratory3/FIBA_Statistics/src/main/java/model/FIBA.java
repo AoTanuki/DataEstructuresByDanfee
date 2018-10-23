@@ -71,7 +71,6 @@ public class FIBA {
 	 */
 	private RedBlackTree RBTree;
 
-	
 	/**
 	 * Default constructor
 	 * 
@@ -85,14 +84,102 @@ public class FIBA {
 	}
 
 	/**
-	 * @param textFile
-	 * @param textType
+	 * this method allows read a file that contains players and add each player to
+	 * the system.
+	 * 
+	 * @param textURL is the path to the file
+	 * @param textType define what kind of file will be readed.
+	 * @return return a string with the especify of success of the process.
+	 * @throws IOException
+	 * @throws PlayerAlredyAddedException this exception apears when a player is already added.
 	 */
-	public void readInformation(String textFile, char textType) {
-		// TODO implement here
+	public String readInformation(String textURL, char textType) throws IOException{
+		// TODO test it
+		
+		String result = "All players has added correctly";
+		
+		BufferedReader bf = new BufferedReader(new FileReader(textURL));
+		String message = bf.readLine();
+
+		
+		while (message != null && !message.isEmpty()) {
+			String name = "";
+			char gender = ' ';
+			int age = 0;
+			int gamesPlayed = 0;
+			double minutesPlayed = 0;
+			double fieldGoalsPercentage = 0;
+			double threePointsFieldPercentage = 0;
+			double freeThrowPercentage = 0;
+			int personalFouls = 0;
+			double playerImpactEstimate = 0;
+			double offensiveReboundPercentage = 0;
+			double turnoverPercentage = 0;
+
+			// save all player's data readed on a line.
+
+			// If the file has an csv extension do all normal with an array of string given
+			// by split the message by commas.
+			if (textType == CSV_FILE) {
+				String[] playersData = message.split(",");
+
+				name = playersData[0];
+				gender = playersData[1].charAt(0);
+				age = Integer.parseInt(playersData[2]);
+				gamesPlayed = Integer.parseInt(playersData[3]);
+				minutesPlayed = Double.parseDouble(playersData[4]);
+				fieldGoalsPercentage = Double.parseDouble(playersData[5]);
+				threePointsFieldPercentage = Double.parseDouble(playersData[6]);
+				freeThrowPercentage = Double.parseDouble(playersData[7]);
+				personalFouls = Integer.parseInt(playersData[8]);
+				playerImpactEstimate = Double.parseDouble(playersData[9]);
+				offensiveReboundPercentage = Double.parseDouble(playersData[10]);
+				turnoverPercentage = Double.parseDouble(playersData[11]);
+
+			}
+
+			// save all data but String tokenizer. i dont know, maybe its more effecient.
+			else if (textType == SEPARATE_BY_SPACES) {
+				StringTokenizer toker = new StringTokenizer(message);
+				name = toker.nextToken();
+				gender = toker.nextToken().charAt(0);
+				age = Integer.parseInt(toker.nextToken());
+				gamesPlayed = Integer.parseInt(toker.nextToken());
+				minutesPlayed = Double.parseDouble(toker.nextToken());
+				fieldGoalsPercentage = Double.parseDouble(toker.nextToken());
+				threePointsFieldPercentage = Double.parseDouble(toker.nextToken());
+				freeThrowPercentage = Double.parseDouble(toker.nextToken());
+				personalFouls = Integer.parseInt(toker.nextToken());
+				playerImpactEstimate = Double.parseDouble(toker.nextToken());
+				offensiveReboundPercentage = Double.parseDouble(toker.nextToken());
+				turnoverPercentage = Double.parseDouble(toker.nextToken());
+			}
+
+			// Create a new player.
+			Player player = new Player(name, gender, age, gamesPlayed, minutesPlayed, fieldGoalsPercentage,
+					threePointsFieldPercentage, freeThrowPercentage, personalFouls, playerImpactEstimate,
+					offensiveReboundPercentage, turnoverPercentage);
+
+			// add this new player
+			try {
+				addPlayer(player);
+			}catch (PlayerAlredyAddedException e){
+				if(result.equals("All players has added correctly")) {
+					result = e.getMessage();
+				}else{
+					result+= ", and "+e.getMessage();
+				}
+			}
+			
+			message = bf.readLine();
+		}
+
+		bf.close();
+		return result;
 	}
 
 	/**
+	 * 
 	 * @param name
 	 * @param gender
 	 * @param age
@@ -115,55 +202,42 @@ public class FIBA {
 	}
 
 	/**
-	 * @param player
-	 * @throws PlayerAlredyAddedException 
-	 * @throws IOException 
+	 * This method add a player in the system.
+	 * 
+	 * @param player the new player
+	 * @throws PlayerAlredyAddedException
+	 * @throws IOException
 	 */
 	public void addPlayer(Player player) throws PlayerAlredyAddedException, IOException {
 		// TODO test it
-		
-		if(playersAdded.containsKey(player)) {
-			throw new PlayerAlredyAddedException("The player with the name: "+player.getName()+" is already in the system");
-		}else {
-			
-			//add the player to the system
-			playersAdded.put(player.getName(), playersAdded.size()-1);
-			//save player to be persistent.
-			savePlayer(player, playersAdded.size()-1);
-			
-			//save all index in the trees.
+
+		if (playersAdded.containsKey(player)) {
+			throw new PlayerAlredyAddedException(
+					"The player with the name: " + player.getName() + " is already in the system");
+		} else {
+
+			// add the player to the system
+			playersAdded.put(player.getName(), playersAdded.size() - 1);
+			// save player to be persistent.
+			savePlayer(player, playersAdded.size() - 1);
+
+			// save all index in the trees.
 			this.RBTree.addPlayerItems(player);
 			this.AVlTree.addPlayersItems(player);
 			this.BTSTree.addPlayersItems(player);
-			
-			//TODO consider
-			//save persistence
+
+			// TODO consider
+			// save persistence
 			persistenceOff();
 		}
-		
-		
 	}
 
 	/**
-	 * this method search a player with her/his name.
-	 * 
-	 * @param name the name of that player
-	 * @return the searched player
-	 * @throws IOException
-	 * @throws PlayerNotFoundException this exception appears when the player does
-	 *                                 not appears in the players added.
+	 * @return
 	 */
-	public Player searchPlayer(String name) throws IOException, PlayerNotFoundException {
-		// TODO test it
-		Player player = null;
-
-		if (playersAdded.containsKey(name)) {
-			player = getPlayer(playersAdded.get(name));
-		} else {
-			throw new PlayerNotFoundException("The player that is called: " + name + " does not found in our system");
-		}
-
-		return player;
+	public boolean removePlayer() {
+		// TODO implement here
+		return false;
 	}
 
 	/**
@@ -173,14 +247,6 @@ public class FIBA {
 	 */
 	public void modifyPlayer(String playerName, String attributeToChange, Object newValue) {
 		// TODO implement here
-	}
-
-	/**
-	 * @return
-	 */
-	public boolean removePlayer() {
-		// TODO implement here
-		return false;
 	}
 
 	/**
@@ -205,6 +271,28 @@ public class FIBA {
 	public ArrayList<Item<Number>> searchValue(boolean defaultSearch, Number value, int itemType) {
 		// TODO implement here
 		return null;
+	}
+
+	/**
+	 * this method search a player with her/his name.
+	 * 
+	 * @param name the name of that player
+	 * @return the searched player
+	 * @throws IOException
+	 * @throws PlayerNotFoundException this exception appears when the player does
+	 *                                 not appears in the players added.
+	 */
+	public Player searchPlayer(String name) throws IOException, PlayerNotFoundException {
+		// TODO test it
+		Player player = null;
+
+		if (playersAdded.containsKey(name)) {
+			player = getPlayer(playersAdded.get(name));
+		} else {
+			throw new PlayerNotFoundException("The player that is called: " + name + " does not found in our system");
+		}
+
+		return player;
 	}
 
 	/**
@@ -238,23 +326,27 @@ public class FIBA {
 				threePointsFieldPercentage, freeThrowPercentage, personalFouls, playerImpactEstimate,
 				offensiveReboundPercentage, turnoverPercentage);
 
+		bf.close();
 		return player;
 	}
 
 	/**
 	 * This method create a new txt file with a new player
-	 * @param player the new player to be added.
+	 * 
+	 * @param player   the new player to be added.
 	 * @param txtIndex index of the new file.
 	 * @throws IOException
 	 */
-	public void savePlayer(Player player, int txtIndex) throws IOException
-	{
-		//TODO test it
-		
-		//create a new file with that index
-		BufferedWriter bf = new BufferedWriter(new FileWriter(PLAYERS_ADDED_OBJECT_PATH+"player"+txtIndex+".txt"));
+	public void savePlayer(Player player, int txtIndex) throws IOException {
+		// TODO test it
+
+		// create a new file with that index
+		BufferedWriter bf = new BufferedWriter(
+				new FileWriter(PLAYERS_ADDED_OBJECT_PATH + "player" + txtIndex + ".txt"));
 		bf.write(player.savePlayerReport());
+		bf.close();
 	}
+
 	/**
 	 * this method create a report with all players that are referenced in each
 	 * items of the given array.
