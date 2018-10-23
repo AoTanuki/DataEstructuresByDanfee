@@ -122,6 +122,28 @@ public class Player {
 	 */
 	private double turnoverPercentage;
 
+	
+	/**
+	 * Default constructor
+	 */
+	public Player() {
+	}
+
+
+	/**
+	 * @param name is the name of the player.
+	 * @param gender is the gender of the player .
+	 * @param age is the age of the player.
+	 * @param gamesPlayed is how games this player has played.
+	 * @param minutesPlayed is how minutes this player has played.
+	 * @param fieldGoalsPercentage is the field goals percentage of this player.
+	 * @param threePointsFieldPercentage is the three points field percentage of this player.
+	 * @param freeThrowPercentage is the free throw percentage of this player.
+	 * @param personalFouls is how many personal fouls this player has.
+	 * @param playerImpactEstimate is the player impact estimate of this player.
+	 * @param offensiveReboundPercentage is the offensive rebound percentage of this player.
+	 * @param turnoverPercentage is the turnover percentage of this player.
+	 */
 	public Player(String name, char gender, int age, int gamesPlayed, double minutesPlayed, double fieldGoalsPercentage,
 			double threePointsFieldPercentage, double freeThrowPercentage, int personalFouls,
 			double playerImpactEstimate, double offensiveReboundPercentage, double turnoverPercentage) {
@@ -139,6 +161,9 @@ public class Player {
 		this.offensiveReboundPercentage = offensiveReboundPercentage;
 		this.turnoverPercentage = turnoverPercentage;
 	}
+
+
+
 
 	/**
 	 * This method returns a String that contains the statistical data ordered by txt order.

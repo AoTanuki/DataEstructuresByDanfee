@@ -1,5 +1,6 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,7 +10,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
-
 
 public class FIBA {
 
@@ -21,7 +21,7 @@ public class FIBA {
 
 	/**
 	 * this constant is used to define that given file contains all player's
-	 * attributes by spaces. 
+	 * attributes by spaces.
 	 */
 	public static final char SEPARATE_BY_SPACES = 'C';
 
@@ -29,22 +29,26 @@ public class FIBA {
 	 * This constant indicate the url of hashmap's .obj
 	 */
 	private static final String PLAYERS_ADDED_OBJECT_PATH = "./data/config/PlayersAdded.obj";
-	
+
 	/**
 	 * This constant indicate the url of binary tree search's .obj
 	 */
 	private static final String BTS_OBJECT_PATH = "./data/config/BTS.obj";
-	
+
 	/**
 	 * This constant indicate the url of avl tree's .obj
 	 */
 	private static final String AVL_OBJECT_PATH = "./data/config/AVL.obj";
-	
+
 	/**
 	 * This constant indicate the URL of red black tree's .obj
 	 */
 	private static final String RBT_OBJECT_PATH = "./data/config/RBT.obj";
-	
+
+	/**
+	 * This constant indicate the URL of players data path.
+	 */
+	private static final String PLAYERS_DATA_SOURCE = "./data/playersSource/";
 	/**
 	 * This map contains all players added on the program.
 	 */
@@ -67,9 +71,13 @@ public class FIBA {
 
 	/**
 	 * Default constructor
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 */
-	public FIBA() {
-		
+	public FIBA() throws FileNotFoundException, ClassNotFoundException, IOException {
+		persistenceOn();
+
 	}
 
 	/**
@@ -164,10 +172,35 @@ public class FIBA {
 	/**
 	 * @param txtIndex
 	 * @return
+	 * @throws IOException
 	 */
-	public Player getPlayer(int txtIndex) {
-		// TODO implement here
-		return null;
+	public Player getPlayer(int txtIndex) throws IOException {
+		// TODO test it
+
+		// read file with its corresponding index
+		BufferedReader bf = new BufferedReader(new FileReader(PLAYERS_DATA_SOURCE + "player" + txtIndex + ".txt"));
+		StringTokenizer toker = new StringTokenizer(bf.readLine());
+
+		// cast all attribute
+		String name = toker.nextToken();
+		char gender = toker.nextToken().charAt(0);
+		int age = Integer.parseInt(toker.nextToken());
+		int gamesPlayed = Integer.parseInt(toker.nextToken());
+		double minutesPlayed = Double.parseDouble(toker.nextToken());
+		double fieldGoalsPercentage = Double.parseDouble(toker.nextToken());
+		double threePointsFieldPercentage = Double.parseDouble(toker.nextToken());
+		double freeThrowPercentage = Double.parseDouble(toker.nextToken());
+		int personalFouls = Integer.parseInt(toker.nextToken());
+		double playerImpactEstimate = Double.parseDouble(toker.nextToken());
+		double offensiveReboundPercentage = Double.parseDouble(toker.nextToken());
+		double turnoverPercentage = Double.parseDouble(toker.nextToken());
+
+		// Create a new player.
+		Player player = new Player(name, gender, age, gamesPlayed, minutesPlayed, fieldGoalsPercentage,
+				threePointsFieldPercentage, freeThrowPercentage, personalFouls, playerImpactEstimate,
+				offensiveReboundPercentage, turnoverPercentage);
+
+		return player;
 	}
 
 	/**
@@ -179,30 +212,29 @@ public class FIBA {
 		return null;
 	}
 
-
-
 	/**
 	 * This method initializes the classes with their corresponding .obj files
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
-	 * @throws ClassNotFoundException 
+	 * 
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
 	public void persistenceOn() throws FileNotFoundException, IOException, ClassNotFoundException {
-		//TODO test it
-		//initialize players added:
+		// TODO test it
+		// initialize players added:
 		ObjectInputStream hashMapReader = new ObjectInputStream(new FileInputStream(PLAYERS_ADDED_OBJECT_PATH));
-		this.playersAdded = (HashMap<String,Integer>) hashMapReader.readObject();
+		this.playersAdded = (HashMap<String, Integer>) hashMapReader.readObject();
 		hashMapReader.close();
-		//initialize bts tree:
+		// initialize bts tree:
 		ObjectInputStream btsReader = new ObjectInputStream(new FileInputStream(BTS_OBJECT_PATH));
 		this.BTSTree = (BinarySearchTree) btsReader.readObject();
 		btsReader.close();
-		//initialize avl tree:
+		// initialize avl tree:
 		ObjectInputStream avlReader = new ObjectInputStream(new FileInputStream(AVL_OBJECT_PATH));
 		this.AVlTree = (AVLTree) avlReader.readObject();
 		avlReader.close();
-		//initialize red black tree:
+		// initialize red black tree:
 		ObjectInputStream rbReader = new ObjectInputStream(new FileInputStream(RBT_OBJECT_PATH));
 		this.RBTree = (RedBlackTree) rbReader.readObject();
 		rbReader.close();
@@ -210,24 +242,25 @@ public class FIBA {
 
 	/**
 	 * this method save all data added in the program.
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
+	 * 
+	 * @throws IOException
+	 * @throws FileNotFoundException
 	 */
 	public void persistenceOff() throws FileNotFoundException, IOException {
-		//TODO test it
+		// TODO test it
 		// save all players added in the hashmap:
 		ObjectOutputStream hashMapSaver = new ObjectOutputStream(new FileOutputStream(PLAYERS_ADDED_OBJECT_PATH));
 		hashMapSaver.writeObject(this.playersAdded);
 		hashMapSaver.close();
-		//save bts tree
+		// save bts tree
 		ObjectOutputStream BTSSaver = new ObjectOutputStream(new FileOutputStream(BTS_OBJECT_PATH));
 		BTSSaver.writeObject(this.BTSTree);
 		BTSSaver.close();
-		//save avl tree
+		// save avl tree
 		ObjectOutputStream AVLSaver = new ObjectOutputStream(new FileOutputStream(AVL_OBJECT_PATH));
 		AVLSaver.writeObject(this.AVlTree);
 		AVLSaver.close();
-		//save rb tree
+		// save rb tree
 		ObjectOutputStream RBSaver = new ObjectOutputStream(new FileOutputStream(PLAYERS_ADDED_OBJECT_PATH));
 		RBSaver.writeObject(this.RBTree);
 		RBSaver.close();
