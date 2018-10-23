@@ -1346,7 +1346,7 @@
 											"top": 1644,
 											"width": 324.1494140625,
 											"height": 13,
-											"text": "Node<D extends Number>"
+											"text": "Node<Number>"
 										},
 										{
 											"_type": "LabelView",
@@ -2687,7 +2687,7 @@
 											"top": 1652,
 											"width": 172.67529296875,
 											"height": 13,
-											"text": "Item<P extends Number>"
+											"text": "Item<Number>"
 										},
 										{
 											"_type": "LabelView",
@@ -3952,7 +3952,7 @@
 											"top": 1413,
 											"width": 299.5205078125,
 											"height": 13,
-											"text": "+getLeftChild(): Node<D extends Number>",
+											"text": "+getLeftChild(): Node<Number>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3969,7 +3969,7 @@
 											"top": 1428,
 											"width": 299.5205078125,
 											"height": 13,
-											"text": "+setLeftChild(node: Node<D extends Number>)",
+											"text": "+setLeftChild(node: Node<Number>)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3986,7 +3986,7 @@
 											"top": 1443,
 											"width": 299.5205078125,
 											"height": 13,
-											"text": "+getRightChild(): Node<D extends Number>",
+											"text": "+getRightChild(): Node<Number>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4003,7 +4003,7 @@
 											"top": 1458,
 											"width": 299.5205078125,
 											"height": 13,
-											"text": "+setRightChild(node: Node<D extends Number>)",
+											"text": "+setRightChild(node: Node<Number>)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4327,7 +4327,7 @@
 											"top": 1351,
 											"width": 333.53759765625,
 											"height": 13,
-											"text": "+getUncle(): Node<D extends Number>",
+											"text": "+getUncle(): Node<Number>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4344,7 +4344,7 @@
 											"top": 1366,
 											"width": 333.53759765625,
 											"height": 13,
-											"text": "+setUncle(uncle: Node<D extends Number>)",
+											"text": "+setUncle(uncle: Node<Number>)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -9477,7 +9477,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Node<D extends Number>",
+					"name": "Node<Number>",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -9680,7 +9680,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Item<P extends Number>",
+					"name": "Item<Number>",
 					"documentation": "This class contains the value and the player txt's index of a player\n",
 					"stereotype": "Serializable",
 					"attributes": [
@@ -11331,11 +11331,49 @@
 									"model": {
 										"$ref": "AAAAAAFmfk9Py96NA4g="
 									},
+									"subViews": [
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFmnQnKgw/PN0Y=",
+											"_parent": {
+												"$ref": "AAAAAAFmilm6a9VnOfY="
+											},
+											"model": {
+												"$ref": "AAAAAAFmjXaWx2ePxdk="
+											},
+											"font": "Arial;13;0",
+											"left": 1029,
+											"top": 1293,
+											"width": 1444.294921875,
+											"height": 13,
+											"underline": true,
+											"text": "+CSV_FILE: char = 'C'",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFmnQnKhw/SY8M=",
+											"_parent": {
+												"$ref": "AAAAAAFmilm6a9VnOfY="
+											},
+											"model": {
+												"$ref": "AAAAAAFmjXjkZmpWfeQ="
+											},
+											"font": "Arial;13;0",
+											"left": 1029,
+											"top": 1308,
+											"width": 1444.294921875,
+											"height": 13,
+											"underline": true,
+											"text": "+SEPARATE_BY_SPACES: char = 'C'",
+											"horizontalAlignment": 0
+										}
+									],
 									"font": "Arial;13;0",
 									"left": 1024,
 									"top": 1288,
 									"width": 1454.294921875,
-									"height": 10
+									"height": 38
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -11358,10 +11396,10 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1303,
+											"top": 1331,
 											"width": 1444.294921875,
 											"height": 13,
-											"text": "+readInformation(textFile: String)",
+											"text": "+readInformation(textFile: String, textType: char)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11375,10 +11413,10 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1318,
+											"top": 1346,
 											"width": 1444.294921875,
 											"height": 13,
-											"text": "+readInformation(name: int, gender: char, age: int, gamesPlayed: int, minutesPlayed: double, fgpercentage: double, tpfpercentage: double, ftpecerntage: double, personalFouls: int, piestimate: double, orpercentage: double, turnoverPercentage: double)",
+											"text": "+readInformation(name: int, gender: char, age: int, gamesPlayed: int, minutesPlayed: double, fgpercentage: double, tpfpercentage: double, ftpecerntage: double, personalFouls: int, piestimate: double, orpercentage: double, turnoverPercentage: double): Player",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11392,7 +11430,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1333,
+											"top": 1361,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+addPlayer(player: Player): boolean",
@@ -11409,7 +11447,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1348,
+											"top": 1376,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+searchPlayer(name: String): Player",
@@ -11426,7 +11464,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1363,
+											"top": 1391,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+modifyPlayer(playerName: String, attributeToChange: String, newValue: Object)",
@@ -11443,7 +11481,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1378,
+											"top": 1406,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+removePlayer(): boolean",
@@ -11460,7 +11498,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1393,
+											"top": 1421,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+searchIntervalValues(defaultSearch: boolean, initialValue: Number, finalValue: Number, itemType: int): ArrayList<Item<Number>>",
@@ -11477,7 +11515,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1408,
+											"top": 1436,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+searchValue(defaultSearch: boolean, value: number, itemType: int): ArrayList<Item<Number>>",
@@ -11494,7 +11532,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1423,
+											"top": 1451,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+getPlayer(txtIndex: int): Player",
@@ -11511,7 +11549,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1438,
+											"top": 1466,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+generateReport(items: ArrayList<Item<Number>>): ArrayList<String>",
@@ -11528,7 +11566,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1453,
+											"top": 1481,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+readObjects(File: String)",
@@ -11545,7 +11583,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1468,
+											"top": 1496,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+writeObjects(File: String)",
@@ -11562,7 +11600,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1483,
+											"top": 1511,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+persistenceOn()",
@@ -11579,7 +11617,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1029,
-											"top": 1498,
+											"top": 1526,
 											"width": 1444.294921875,
 											"height": 13,
 											"text": "+persistenceOff()",
@@ -11588,8 +11626,8 @@
 									],
 									"font": "Arial;13;0",
 									"left": 1024,
-									"top": 1298,
-									"width": 1454.294921875,
+									"top": 1326,
+									"width": 1498.36669921875,
 									"height": 218
 								},
 								{
