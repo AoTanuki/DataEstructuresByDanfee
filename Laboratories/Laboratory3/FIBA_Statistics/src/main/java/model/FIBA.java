@@ -1,11 +1,13 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -69,11 +71,13 @@ public class FIBA {
 	 */
 	private RedBlackTree RBTree;
 
+	
 	/**
 	 * Default constructor
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
-	 * @throws FileNotFoundException 
+	 * 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws FileNotFoundException
 	 */
 	public FIBA() throws FileNotFoundException, ClassNotFoundException, IOException {
 		persistenceOn();
@@ -112,30 +116,53 @@ public class FIBA {
 
 	/**
 	 * @param player
-	 * @return
+	 * @throws PlayerAlredyAddedException 
+	 * @throws IOException 
 	 */
-	public boolean addPlayer(Player player) {
-		// TODO implement here
-		return false;
+	public void addPlayer(Player player) throws PlayerAlredyAddedException, IOException {
+		// TODO test it
+		
+		if(playersAdded.containsKey(player)) {
+			throw new PlayerAlredyAddedException("The player with the name: "+player.getName()+" is already in the system");
+		}else {
+			
+			//add the player to the system
+			playersAdded.put(player.getName(), playersAdded.size()-1);
+			//save player to be persistent.
+			savePlayer(player, playersAdded.size()-1);
+			
+			//save all index in the trees.
+			this.RBTree.addPlayerItems(player);
+			this.AVlTree.addPlayersItems(player);
+			this.BTSTree.addPlayersItems(player);
+			
+			//TODO consider
+			//save persistence
+			persistenceOff();
+		}
+		
+		
 	}
 
 	/**
-	 * @param name
-	 * @return
-	 * @throws IOException 
-	 * @throws PlayerNotFoundException 
+	 * this method search a player with her/his name.
+	 * 
+	 * @param name the name of that player
+	 * @return the searched player
+	 * @throws IOException
+	 * @throws PlayerNotFoundException this exception appears when the player does
+	 *                                 not appears in the players added.
 	 */
 	public Player searchPlayer(String name) throws IOException, PlayerNotFoundException {
 		// TODO test it
 		Player player = null;
-		
-		if(playersAdded.containsKey(name))
-		{
+
+		if (playersAdded.containsKey(name)) {
 			player = getPlayer(playersAdded.get(name));
-		}else {
-			throw new PlayerNotFoundException("The player that is called: "+name+" does not found in our system");
+		} else {
+			throw new PlayerNotFoundException("The player that is called: " + name + " does not found in our system");
 		}
-		
+
 		return player;
 	}
 
@@ -215,15 +242,32 @@ public class FIBA {
 	}
 
 	/**
-	 * this method create a report with all players that are referenced in each items of the given array.
+	 * This method create a new txt file with a new player
+	 * @param player the new player to be added.
+	 * @param txtIndex index of the new file.
+	 * @throws IOException
+	 */
+	public void savePlayer(Player player, int txtIndex) throws IOException
+	{
+		//TODO test it
+		
+		//create a new file with that index
+		BufferedWriter bf = new BufferedWriter(new FileWriter(PLAYERS_ADDED_OBJECT_PATH+"player"+txtIndex+".txt"));
+		bf.write(player.savePlayerReport());
+	}
+	/**
+	 * this method create a report with all players that are referenced in each
+	 * items of the given array.
+	 * 
 	 * @param items an array with items that contains a value and a txt index.
-	 * @return an array with the information of all players referenced in previous items.
-	 * @throws IOException 
+	 * @return an array with the information of all players referenced in previous
+	 *         items.
+	 * @throws IOException
 	 */
 	public ArrayList<String> generateReport(ArrayList<Item<Number>> items) throws IOException {
 		// TODO test it
 		ArrayList<String> report = new ArrayList<>();
-		
+
 		for (int i = 0; i < items.size(); i++) {
 			Player player = getPlayer(items.get(i).getTxtIndex());
 			report.add(player.toString());
