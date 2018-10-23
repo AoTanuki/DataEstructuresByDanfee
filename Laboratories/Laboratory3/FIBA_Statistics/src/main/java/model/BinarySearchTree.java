@@ -1,10 +1,11 @@
 package model;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * 
  */
-public class BinarySearchTree {
+public class BinarySearchTree implements Serializable{
 
 	/**
 	 * This attribute represents the root node.

@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSNode<D> {
+public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSNode<D>,Serializable{
 
 	/**
 	 * This attribute represents the father node of this one.
