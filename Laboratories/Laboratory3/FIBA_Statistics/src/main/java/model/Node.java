@@ -171,17 +171,36 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 
 
 	@Override
-	public INode<D> insert(INode<D> node) {
+	public BTSNode<D> insert(BTSNode<D> node) {
 		// TODO Auto-generated method stub
-		
+		return null;
+	}
+
+
+	@Override
+	public RedBlackNode<D> insert(RedBlackNode<D> node) {
+		// TODO Auto-generated method stub
 		
 		return null;
 	}
 
 
 	@Override
-	public void remove() {
+	public AVLNode<D> insert(AVLNode<D> node) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Item<D> getItem() {
+		return this.entryData;
+	}
+
+
+	@Override
+	public void setItem(Item<D> item) {
+		this.entryData = item;
 		
 	}
 

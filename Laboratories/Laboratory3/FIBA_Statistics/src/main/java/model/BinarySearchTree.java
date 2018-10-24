@@ -80,9 +80,9 @@ public class BinarySearchTree implements Serializable{
      * @param searchedPlayer 
      * @return
      */
-    public boolean removePlayer(Player searchedPlayer) {
+    public void removePlayer(Player searchedPlayer)throws EmptyTreeException{
         // TODO implement here
-        return false;
+       
     }
 
     /**
