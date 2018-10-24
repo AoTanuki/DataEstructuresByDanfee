@@ -58,7 +58,7 @@ public class BinarySearchTree implements Serializable{
      * @param ItemType 
      * @return
      */
-    public ArrayList<Item<Number>> searchValue(Number value, int ItemType) {
+    public ArrayList<Item<Number>> searchValue(Number value, int itemType) {
         // TODO implement here
         return null;
     }
