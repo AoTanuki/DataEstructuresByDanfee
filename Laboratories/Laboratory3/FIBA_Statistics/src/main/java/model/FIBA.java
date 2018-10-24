@@ -13,6 +13,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
 
+import com.sun.javafx.geom.transform.TransformHelper;
+
 public class FIBA {
 
 	/**
@@ -284,6 +286,7 @@ public class FIBA {
 
 	/**
 	 * this method remove a player on the system.
+	 * 
 	 * @param the name of the playar that would be removed.
 	 * @return the result of the process.
 	 */
@@ -321,12 +324,132 @@ public class FIBA {
 	}
 
 	/**
-	 * @param playerName
-	 * @param attributeToChange
-	 * @param newValue
+	 * This methodo change a attribute of a given player
+	 * 
+	 * @param playerName        the name of the player that this method will change
+	 * @param attributeToChange the attribute that will change. Player class
+	 *                          contains all constant that refer which attribute.
+	 * @param newValue          this is the new value for that atribute.
 	 */
-	public void modifyPlayer(String playerName, String attributeToChange, Object newValue) {
-		// TODO implement here
+	public String modifyPlayerAttribute(String playerName, String attributeToChange, String newValue) {
+		// TODO test it
+
+		String result = "Done";
+		// if the player is added so we proced to evaluate what is the attribute to
+		// change
+		if (playersAdded.containsKey(playerName)) {
+
+			// To do that change we follow the next algorithm:
+			// 1) get that player by her/his file
+			Player player = null;
+			try {
+				player = getPlayer(playersAdded.get(playerName));
+			} catch (IOException e) {
+				result = "an IOException impeded to done that change";
+				e.printStackTrace();
+			}
+			// 2) change that attribute:
+
+			switch (attributeToChange) {
+			case Player.CHANGE_NAME:
+				player.setName(newValue);
+				break;
+			case Player.CHANGE_GENDER:
+
+				player.setGender(newValue.charAt(0));
+				break;
+			case Player.CHANGE_AGE:
+				player.setAge(Integer.parseInt(newValue));
+				break;
+			case Player.CHANGE_GAMES_PLAYED:
+				player.setGamesPlayed(Integer.parseInt(newValue));
+				break;
+			case Player.CHANGE_MINUTES_PLAYED:
+				player.setMinutesPlayed(Double.parseDouble(newValue));
+				break;
+			case Player.CHANGE_FIELD_GOALS_PERCENTAGE:
+				player.setFieldGoalsPercentage(Double.parseDouble(newValue));
+				break;
+			case Player.CHANGE_THREE_THROW_PERCENTAGE:
+				player.setThreePointsFieldPercentage(Double.parseDouble(newValue));
+				break;
+			case Player.CHANGE_FREE_THROW_PERCENTAGE:
+				player.setFreeThrowPercentage(Double.parseDouble(newValue));
+				break;
+			case Player.CHANGE_PERSONAL_FOULS:
+				player.setPersonalFouls(Integer.parseInt(newValue));
+				break;
+			case Player.CHANGE_PLAYER_IMPACT_ESTIMATE:
+				player.setPlayerImpactEstimate(Double.parseDouble(newValue));
+				break;
+			case Player.CHANGE_OFFENSIVE_REBOUND_PERCENTAGE:
+				player.setOffensiveReboundPercentage(Double.parseDouble(newValue));
+				break;
+			case Player.CHANGE_TURNOVER_PERCENTAGE:
+				player.setTurnoverPercentage(Double.parseDouble(newValue));
+				break;
+			}
+
+			// if the attribute to change is a stadistic index, we will follow this change
+			// in the trees. Depending, of course, what tree contains that.
+
+			// if attributes to chage are the field goals percentage or three throw
+			// percentage. Then, we continue to use the modify in the red black tree and
+			// bts.
+			if (attributeToChange.equals(Player.CHANGE_FIELD_GOALS_PERCENTAGE)
+					|| attributeToChange.equals(Player.CHANGE_THREE_THROW_PERCENTAGE)) {
+
+				switch (attributeToChange) {
+				case Player.CHANGE_FIELD_GOALS_PERCENTAGE:
+
+					this.RBTree.modifyValue(player, newValue, RedBlackNode.FIELD_GOALS_PERCENTAGE);
+					this.BTSTree.modifyValue(player, newValue, BTSNode.FIELD_GOALS_PERCENTAGE);
+					break;
+
+				case Player.CHANGE_THREE_THROW_PERCENTAGE:
+
+					this.RBTree.modifyValue(player, newValue, RedBlackNode.THREE_POINT_FIELD_GOALS_PERCENTAGE);
+					this.BTSTree.modifyValue(player, newValue, BTSNode.THREE_POINT_FIELD_GOALS_PERCENTAGE);
+					break;
+				}
+			}
+
+			// Otherwise, if the attribute are free throw percentage or personal fouls we
+			// will modify AVL tree, and, again, bts tree.
+			else if (attributeToChange.equals(Player.CHANGE_FREE_THROW_PERCENTAGE)
+					|| attributeToChange.equals(Player.CHANGE_PERSONAL_FOULS)) {
+
+				switch (attributeToChange) {
+				case Player.CHANGE_FREE_THROW_PERCENTAGE:
+
+					this.AVlTree.modifyValue(player, newValue, AVLNode.FREE_THROW_PERCENTAGE);
+					this.BTSTree.modifyValue(player, newValue, BTSNode.FREE_THROW_PERCENTAGE);
+					break;
+
+				case Player.CHANGE_PERSONAL_FOULS:
+
+					this.AVlTree.modifyValue(player, newValue, AVLNode.PERSONAL_FOULS);
+					this.BTSTree.modifyValue(player, newValue, BTSNode.PERSONAL_FOULS);
+					break;
+				}
+
+			}
+			// Whether at this point all has been alright: We, finally, continue saving this
+			// change in her/his corresponding txt file.
+			try {
+				savePlayer(player, playersAdded.get(playerName));
+			} catch (IOException e) {
+				result = "an IOException impeded to done that change";
+				e.printStackTrace();
+			}
+
+		}
+		// Otherwise, result will indicate that the process did not can possible.
+		else {
+			result = "Player does not are added";
+		}
+
+		return result;
 	}
 
 	/**

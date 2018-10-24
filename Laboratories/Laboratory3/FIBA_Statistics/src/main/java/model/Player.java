@@ -5,62 +5,62 @@ public class Player {
 	/**
 	 * This constant indicates that user want to change the name of a player
 	 */
-	static final String CHAGE_NAME = "name";
+	static final String CHANGE_NAME = "name";
 
 	/**
 	 * This constant indicates that user want to change the gender of a player
 	 */
-	static final String GENDER	= "gender";
+	static final String CHANGE_GENDER	= "gender";
 	
 	/**
 	 * This constant indicates that user want to change the age of a player
 	 */
-	static final String AGE = "age";
+	static final String CHANGE_AGE = "age";
 	
 	/**
 	 * This constant indicates that user want to change the games played of a player
 	 */
-	static final String GAMES_PLAYED = "age";
+	static final String CHANGE_GAMES_PLAYED = "games played";
 	
 	/**
 	 * This constant indicates that user want to change the minutes played of a player
 	 */
-	static final String MINUTES_PLAYED = "age";
+	static final String CHANGE_MINUTES_PLAYED = "minutes played";
 	
 	/**
 	 * This constant indicates that user want to change the field goals percentage of a player
 	 */
-	static final String FIELD_GOALS_PERCENTAGE = "age";
+	static final String CHANGE_FIELD_GOALS_PERCENTAGE = "field goals percentage";
 	
 	/**
 	 * This constant indicates that user want to change the free throw percentage of a player
 	 */
-	static final String FREE_THROW_PERCENTAGE = "age";
+	static final String CHANGE_FREE_THROW_PERCENTAGE = "free throw percentage";
 	
 	/**
 	 * This constant indicates that user want to change personal fouls of a player
 	 */
-	static final String PERSONAL_FOULS = "age";
+	static final String CHANGE_PERSONAL_FOULS = "personal fouls";
 	
 	/**
 	 * This constant indicates that user want to change the three throw percentage of a player
 	 */
-	static final String THREE_THROW_PERCENTAGE = "age";
+	static final String CHANGE_THREE_THROW_PERCENTAGE = "three throw percentage";
 	
 	/**
 	 * This constant indicates that user want to change the player impact estimate of a player
 	 */
-	static final String PLAYER_IMPACT_ESTIMATE = "age";
+	static final String CHANGE_PLAYER_IMPACT_ESTIMATE = "player impact estimate";
 	
 	/**
 	 * This constant indicates that user want to change the offensive rebound percentage of a player
 	 */
-	static final String OFFENSIVE_REBOUND_PERCENTAGE = "age";
+	static final String CHANGE_OFFENSIVE_REBOUND_PERCENTAGE = "offensive rebound percentage";
 	
 	/**
 	 * This constant indicates that user want to change the turnover percentage	 of a player
 	 */
-	static final String TURNOVER_PERCENTAGE = "age";
+	static final String CHANGE_TURNOVER_PERCENTAGE = "turnover percentage";
 	
 	/**
 	 * This attribute represents  the name of this player.

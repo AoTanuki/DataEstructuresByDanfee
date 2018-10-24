@@ -70,7 +70,7 @@ public class BinarySearchTree implements Serializable{
      * @param itemType 
      * @return
      */
-    public boolean modifyValue(Player searchedPlayer, Number newValue, int itemType) {
+    public boolean modifyValue(Player searchedPlayer, String newValue, int itemType) {
         // TODO implement here
         return false;
     }
