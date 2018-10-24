@@ -16,6 +16,12 @@ import java.util.*;
 public class FIBA {
 
 	/**
+	 * This method indicate what is the lastest index added. and is a value added in
+	 * my players added hash map. just to confort jues jues jues.
+	 */
+	private static String LASTEST_INDEX_ADDED = "memory";
+
+	/**
 	 * this constant is used to define that given file contains all player's
 	 * attributes by commas.
 	 */
@@ -48,6 +54,11 @@ public class FIBA {
 	private static final String RBT_OBJECT_PATH = "./data/config/RBT.obj";
 
 	/**
+	 * This constant indicate the URL of available index queue .obj
+	 */
+	private static final String QUEUE_OBJECT_PATH = "./data/config/availableIndexs.obj";
+
+	/**
 	 * This constant indicate the URL of players data path.
 	 */
 	private static final String PLAYERS_DATA_SOURCE = "./data/playersSource/";
@@ -70,6 +81,11 @@ public class FIBA {
 	 * This is the red black tree
 	 */
 	private RedBlackTree RBTree;
+
+	/**
+	 * this queue indicates what txt index are available to reuse.
+	 */
+	private Queue<Integer> availableIndexs;
 
 	/**
 	 * Default constructor
@@ -196,11 +212,11 @@ public class FIBA {
 	 * @param orpercentage       is the offensive rebound percentage of this player.
 	 * @param turnoverPercentage is the turnover percentage of this player.
 	 * @return return a string with the especify of success of the process.
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public String readInformation(String name, char gender, int age, int gamesPlayed, double minutesPlayed,
 			double fgpercentage, double tpfpercentage, double ftpecerntage, int personalFouls, double piestimate,
-			double orpercentage, double turnoverPercentage) throws IOException {
+			double orpercentage, double turnoverPercentage) {
 		// TODO test it
 		String result = "All players has added correctly";
 
@@ -209,9 +225,11 @@ public class FIBA {
 
 		try {
 			addPlayer(player);
-		}catch(PlayerAlredyAddedException e)
-		{
+		} catch (PlayerAlredyAddedException e) {
 			result = e.getMessage();
+		} catch (IOException e) {
+			result = "the operation has been interrumpted by an unknown error";
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -231,10 +249,27 @@ public class FIBA {
 					"The player with the name: " + player.getName() + " is already in the system");
 		} else {
 
+			// get new index to txt file
+			int newIndex = 0;
+			// if there are availables indexs the system will use this.
+			if (!this.availableIndexs.isEmpty()) {
+				newIndex = this.availableIndexs.poll();
+			}
+			// else use a new index
+			else {
+
+				if (playersAdded.containsKey(LASTEST_INDEX_ADDED)) {
+					newIndex = playersAdded.get(LASTEST_INDEX_ADDED);
+					playersAdded.put(LASTEST_INDEX_ADDED, playersAdded.get(LASTEST_INDEX_ADDED) + 1);
+				} else {
+					playersAdded.put(LASTEST_INDEX_ADDED, 0);
+				}
+			}
+
 			// add the player to the system
-			playersAdded.put(player.getName(), playersAdded.size() - 1);
+			playersAdded.put(player.getName(), newIndex);
 			// save player to be persistent.
-			savePlayer(player, playersAdded.size() - 1);
+			savePlayer(player, newIndex);
 
 			// save all index in the trees.
 			this.RBTree.addPlayerItems(player);
@@ -248,11 +283,41 @@ public class FIBA {
 	}
 
 	/**
-	 * @return
+	 * this method remove a player on the system.
+	 * @param the name of the playar that would be removed.
+	 * @return the result of the process.
 	 */
-	public boolean removePlayer() {
+	public String removePlayer(String name) {
 		// TODO implement here
-		return false;
+		String result = "the player " + name + " has been eliminate correctly";
+
+		// exception
+
+		// verify if the player is already added
+		if (playersAdded.containsKey(name)) {
+			// get the player
+			Player player = null;
+			try {
+				player = getPlayer(playersAdded.get(name));
+			} catch (IOException e) {
+				result = " has appears an uknown error";
+				e.printStackTrace();
+			}
+			// save index of this player
+			this.availableIndexs.add(playersAdded.get(name));
+			// remove its reference in the players added.
+			this.playersAdded.remove(name);
+
+			// TODO correct this method to support all exception in all tree remove's
+			// finally, remove for all trees.
+			this.AVlTree.removePlayer(player);
+			this.BTSTree.removePlayer(player);
+			this.RBTree.removePlayer(player);
+
+		} else {
+			result = "the player " + name + " does not finded in our system";
+		}
+		return result;
 	}
 
 	/**
@@ -408,6 +473,11 @@ public class FIBA {
 		ObjectInputStream rbReader = new ObjectInputStream(new FileInputStream(RBT_OBJECT_PATH));
 		this.RBTree = (RedBlackTree) rbReader.readObject();
 		rbReader.close();
+		// initialize queue with availabe indexs
+		ObjectInputStream queueReader = new ObjectInputStream(new FileInputStream(QUEUE_OBJECT_PATH));
+		this.availableIndexs = (Queue<Integer>) queueReader.readObject();
+		queueReader.close();
+
 	}
 
 	/**
@@ -434,6 +504,10 @@ public class FIBA {
 		ObjectOutputStream RBSaver = new ObjectOutputStream(new FileOutputStream(PLAYERS_ADDED_OBJECT_PATH));
 		RBSaver.writeObject(this.RBTree);
 		RBSaver.close();
+		// save available indexs
+		ObjectOutputStream queueSaver = new ObjectOutputStream(new FileOutputStream(QUEUE_OBJECT_PATH));
+		queueSaver.writeObject(this.availableIndexs);
+		queueSaver.close();
 	}
 
 }
