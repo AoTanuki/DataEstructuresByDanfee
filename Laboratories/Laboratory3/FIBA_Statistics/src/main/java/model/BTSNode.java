@@ -23,4 +23,10 @@ public interface BTSNode<P extends Number> extends INoBalancedNode<P> {
 	 */
 	static final int PERSONAL_FOULS = 4;
 
+	/**
+	 * this method insert a node.
+	 * @param node the node to be inserted.
+	 * @return the new root of the of the tree or null whether did not appear any change.
+	 */
+	BTSNode<P> insert (BTSNode<P> node);
 }

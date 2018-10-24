@@ -7,28 +7,28 @@ public interface INode<P extends Number> {
 	 * 
 	 * @return left child of this node.
 	 */
-	Node<P> getleftChild();
+	INode<P> getleftChild();
 
 	/**
 	 * This method allows set the left child node of this node.
 	 * 
 	 * @param node new node that will be new left child.
 	 */
-	void setLeftChild(Node<P> node);
+	void setLeftChild(INode<P> node);
 
 	/**
 	 * This method returns the right child node of this node.
 	 * 
 	 * @return right child of this node.
 	 */
-	Node<P> getRightChild();
+	INode<P> getRightChild();
 
 	/**
 	 * This method allows set the right child node of this node.
 	 * 
 	 * @param node new node that will be new right child.
 	 */
-	void setRightChild(Node<P> node);
+	void setRightChild(INode<P> node);
 
 	/**
 	 * This method add a item with its corresponding item type. For example, if we

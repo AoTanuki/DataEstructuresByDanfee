@@ -6,14 +6,14 @@ public interface IBalancedNode<P extends Number> extends INode<P> {
 	 * This method returns the father of this node.
 	 * @return node father of this node.
 	 */
-	Node<P> getFather();
+	INode<P> getFather();
 	
 	
 	/**
 	 * This method changes the father of this node
 	 * @param newFather a new node that will be father of this.
 	 */
-	void setFather(Node<P> newFather);
+	void setFather(INode<P> newFather);
 	
 	/**
 	 * this method execute a left Rotation. in this kind of tree, all rotation is, in part, only to values.

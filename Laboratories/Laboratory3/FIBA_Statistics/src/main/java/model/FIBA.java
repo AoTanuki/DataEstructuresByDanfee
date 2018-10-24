@@ -21,7 +21,7 @@ public class FIBA {
 	 * This method indicate what is the lastest index added. and is a value added in
 	 * my players added hash map. just to confort jues jues jues.
 	 */
-	private static String LASTEST_INDEX_ADDED = "memory";
+	private static final String LASTEST_INDEX_ADDED = "memory";
 
 	/**
 	 * this constant is used to define that given file contains all player's
@@ -274,9 +274,9 @@ public class FIBA {
 			savePlayer(player, newIndex);
 
 			// save all index in the trees.
-			this.RBTree.addPlayerItems(player);
-			this.AVlTree.addPlayersItems(player);
-			this.BTSTree.addPlayersItems(player);
+			this.RBTree.addPlayerItems(player, newIndex);
+			this.AVlTree.addPlayersItems(player,newIndex);
+			this.BTSTree.addPlayersItems(player,newIndex);
 
 			// TODO consider
 			// save persistence

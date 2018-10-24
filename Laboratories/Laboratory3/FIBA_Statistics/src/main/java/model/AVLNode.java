@@ -26,5 +26,12 @@ public interface AVLNode<P extends Number> extends IBalancedNode<P> {
 	* Constant that represents right balance in this node. 
 	*/
     static final int RIGHT_BALANCE = -1;
+    
+    /**
+	 * this method insert a node.
+	 * @param node the node to be inserted.
+	 * @return the new root of the of the tree or null whether did not appear any change.
+	 */
+    AVLNode<P> insert (AVLNode<P> node);
 	
 }
