@@ -87,21 +87,21 @@ public class FIBA {
 	 * this method allows read a file that contains players and add each player to
 	 * the system.
 	 * 
-	 * @param textURL is the path to the file
+	 * @param textURL  is the path to the file
 	 * @param textType define what kind of file will be readed.
 	 * @return return a string with the especify of success of the process.
 	 * @throws IOException
-	 * @throws PlayerAlredyAddedException this exception apears when a player is already added.
+	 * @throws PlayerAlredyAddedException this exception apears when a player is
+	 *                                    already added.
 	 */
-	public String readInformation(String textURL, char textType) throws IOException{
+	public String readInformation(String textURL, char textType) throws IOException {
 		// TODO test it
-		
+
 		String result = "All players has added correctly";
-		
+
 		BufferedReader bf = new BufferedReader(new FileReader(textURL));
 		String message = bf.readLine();
 
-		
 		while (message != null && !message.isEmpty()) {
 			String name = "";
 			char gender = ' ';
@@ -163,14 +163,14 @@ public class FIBA {
 			// add this new player
 			try {
 				addPlayer(player);
-			}catch (PlayerAlredyAddedException e){
-				if(result.equals("All players has added correctly")) {
+			} catch (PlayerAlredyAddedException e) {
+				if (result.equals("All players has added correctly")) {
 					result = e.getMessage();
-				}else{
-					result+= ", and "+e.getMessage();
+				} else {
+					result += ", and " + e.getMessage();
 				}
 			}
-			
+
 			message = bf.readLine();
 		}
 
@@ -179,26 +179,41 @@ public class FIBA {
 	}
 
 	/**
+	 * this method reads all information of a just one new player and added to the
+	 * system.
 	 * 
-	 * @param name
-	 * @param gender
-	 * @param age
-	 * @param gamesPlayed
-	 * @param minutesPlayed
-	 * @param fgpercentage
-	 * @param tpfpercentage
-	 * @param ftpecerntage
-	 * @param personalFouls
-	 * @param piestimate
-	 * @param orpercentage
-	 * @param turnoverPercentage
-	 * @return
+	 * @param name               is the name of the player.
+	 * @param gender             is the gender of the player .
+	 * @param age                is the age of the player.
+	 * @param gamesPlayed        is how games this player has played.
+	 * @param minutesPlayed      is how minutes this player has played.
+	 * @param fgpercentage       is the field goals percentage of this player.
+	 * @param tpfpercentage      is the three points field percentage of this
+	 *                           player.
+	 * @param ftpecerntage       is the free throw percentage of this player.
+	 * @param personalFouls      is how many personal fouls this player has.
+	 * @param piestimate         is the player impact estimate of this player.
+	 * @param orpercentage       is the offensive rebound percentage of this player.
+	 * @param turnoverPercentage is the turnover percentage of this player.
+	 * @return return a string with the especify of success of the process.
+	 * @throws IOException 
 	 */
-	public Player readInformation(int name, char gender, int age, int gamesPlayed, double minutesPlayed,
+	public String readInformation(String name, char gender, int age, int gamesPlayed, double minutesPlayed,
 			double fgpercentage, double tpfpercentage, double ftpecerntage, int personalFouls, double piestimate,
-			double orpercentage, double turnoverPercentage) {
-		// TODO implement here
-		return null;
+			double orpercentage, double turnoverPercentage) throws IOException {
+		// TODO test it
+		String result = "All players has added correctly";
+
+		Player player = new Player(name, gender, age, gamesPlayed, minutesPlayed, fgpercentage, tpfpercentage,
+				ftpecerntage, personalFouls, piestimate, orpercentage, turnoverPercentage);
+
+		try {
+			addPlayer(player);
+		}catch(PlayerAlredyAddedException e)
+		{
+			result = e.getMessage();
+		}
+		return result;
 	}
 
 	/**
