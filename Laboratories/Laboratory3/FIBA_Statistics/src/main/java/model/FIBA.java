@@ -446,32 +446,133 @@ public class FIBA {
 		}
 		// Otherwise, result will indicate that the process did not can possible.
 		else {
-			result = "Player does not are added";
+			result = "Player does not has added";
 		}
 
 		return result;
 	}
 
 	/**
+	 * This method allows to make a query that search all items added that satisfy
+	 * condition of initial value and final value.
+	 * 
 	 * @param defaultSearch
 	 * @param initialValue
 	 * @param finalValue
 	 * @param itemType
-	 * @return
+	 * @return an array with all players that have values bethween initial value and
+	 *         final value.
 	 */
-	public ArrayList<Item<Number>> searchIntervalValues(boolean defaultSearch, Number initialValue, Number finalValue,
+	public ArrayList<String> searchIntervalQuery(boolean defaultSearch, String initialValue, String finalValue,
 			int itemType) {
-		// TODO implement here
-		return null;
+		ArrayList<String> result = new ArrayList<>();
+
+		// first we evaluate if the query needs an default search that means, use
+		// balanced tree. or not. In that case use bts tree.
+		ArrayList<Item<Number>> itemsArray = new ArrayList<>();
+		if (defaultSearch) {
+			// if this conditions would be true, we proced to know in which tree search
+			// using item type parameter
+			if (itemType == RedBlackNode.FIELD_GOALS_PERCENTAGE
+					|| itemType == RedBlackNode.THREE_POINT_FIELD_GOALS_PERCENTAGE) {
+
+				double valueInitial = Double.parseDouble(initialValue);
+				double valueFinal = Double.parseDouble(finalValue);
+				itemsArray = searchIntervalValues(this.RBTree, valueInitial, valueFinal, itemType);
+
+			}
+			// in this case, like personal fouls are a int, i separted this condition to
+			// cast value initial and value final to a integer. previous conditions dont
+			// need this because all stadistic index are decimals.
+			else if (itemType == AVLNode.PERSONAL_FOULS) {
+
+				int valueInitial = Integer.parseInt(initialValue);
+				int valueFinal = Integer.parseInt(finalValue);
+				itemsArray = searchIntervalValues(this.AVlTree, valueInitial, valueFinal, itemType);
+				
+			}else if (itemType == AVLNode.FREE_THROW_PERCENTAGE) {
+				
+				double valueInitial = Double.parseDouble(initialValue);
+				double valueFinal = Double.parseDouble(finalValue);
+				itemsArray = searchIntervalValues(this.AVlTree, valueInitial, valueFinal, itemType);
+				
+			}
+		} 
+		//Other wise we search in the bts tree
+		else {
+			if (itemType == BTSNode.FIELD_GOALS_PERCENTAGE
+					|| itemType == BTSNode.THREE_POINT_FIELD_GOALS_PERCENTAGE || itemType == BTSNode.THREE_POINT_FIELD_GOALS_PERCENTAGE) {
+
+				double valueInitial = Double.parseDouble(initialValue);
+				double valueFinal = Double.parseDouble(finalValue);
+				itemsArray = searchIntervalValues(this.BTSTree, valueInitial, valueFinal, itemType);
+
+			}else if (itemType == BTSNode.PERSONAL_FOULS) {
+
+				int valueInitial = Integer.parseInt(initialValue);
+				int valueFinal = Integer.parseInt(finalValue);
+				itemsArray = searchIntervalValues(this.BTSTree, valueInitial, valueFinal, itemType);
+				
+			}
+		}
+		
+		//finally, we proced to generate report and return.
+		try {
+			result = generateReport(itemsArray);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+
 	}
 
 	/**
-	 * @param defaultSearch
-	 * @param value
-	 * @param itemType
-	 * @return
+	 * this method searchs items which have values bethween given initial value and final value.
+	 * @param tree is the tree where this method execute that searching
+	 * @param initialValue is the initial value of the interval
+	 * @param finalValue is the final value of the interval.
+	 * @param itemType is the type of the item that will be insert
+	 * @return an array of items that satisfy interval condition
 	 */
-	public ArrayList<Item<Number>> searchValue(boolean defaultSearch, Number value, int itemType) {
+	public ArrayList<Item<Number>> searchIntervalValues(BinarySearchTree tree, Number initialValue, Number finalValue,
+			int itemType) {
+		// TODO test it
+
+		ArrayList<Item<Number>> result = new ArrayList<>();
+		//we star to know what tree is given tree.
+		//if tree is an instance of a red black tree, then we execute this search in our rbtree.
+		if(tree instanceof RedBlackTree) {
+			
+			result = this.RBTree.searchRange(initialValue, finalValue, itemType);
+		
+		}
+		//In another case, when given tree is an instance of an avltree, then we execute this search in our avltree.
+		else if(tree instanceof AVLTree){
+		
+			result = this.AVlTree.searchRange(initialValue, finalValue, itemType);
+			
+		}
+		//Otherwise, we execute this search in our bts.
+		else if (tree instanceof BinarySearchTree){
+			
+			result = this.BTSTree.searchRange(initialValue, finalValue, itemType);
+			
+		}
+		
+		return result;
+	}
+
+	/**
+	 * this method search a value in the given tree
+	  * @param tree is the tree where this method execute that searching
+	 * @param initialValue is the initial value of the interval
+	 * @param finalValue is the final value of the interval.
+	 * @param itemType is the type of the item that will be insert
+	 * @return an array of items that satisfy interval condition
+	 */
+	public ArrayList<Item<Number>> searchValue(BinarySearchTree tree, Number value, int itemType) {
 		// TODO implement here
 		return null;
 	}
