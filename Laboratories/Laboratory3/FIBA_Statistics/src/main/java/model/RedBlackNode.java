@@ -31,49 +31,105 @@ public interface RedBlackNode<P extends Number> extends IBalancedNode<P> {
 	 * example, if you want to know what color has a red black node but with
 	 * attribute field goals percentage
 	 */
-	char getColor(int itemType);
-	
+	char getColor();
+
 	/**
 	 * this method change the color of this node
 	 */
-	
+
 	void setColor(char color);
+
 	/**
 	 * This method returns the uncle of this node.
 	 * 
 	 * @return node uncle of this node.
 	 */
-	INode<P> getUncle();
+	RedBlackNode<P> getUncle();
+
 
 	/**
-	 * This method changes the uncle of this node.
-	 * 
-	 * @param newUncle a new node.
-	 */
-	void setUncle(INode<P> newUncle);
-	
-	/**
 	 * this method insert a node.
+	 * 
 	 * @param node the node to be inserted.
-	 * @return the new root of the of the tree or null whether did not appear any change.
+	 * @return the new root of the of the tree or null whether did not appear any
+	 *         change.
 	 */
 	RedBlackNode<P> insert(RedBlackNode<P> node);
-	
+
 	/**
-	* This method verify if this right son is a leaf;
-	* @return <code>true</code> whether this right son is a leafe or <code>false</code> in otherwise.
-	*/
-	boolean  rightSonLeaf();
-	
+	 * This method create a new node and insert into this tree as a normal bts.
+	 * Also, this method balanced this tree.
+	 * 
+	 * @param node new node to insert.
+	 */
+	void normalInsertion(RedBlackNode<P> node);
+
 	/**
-	* This method verify if this right son is a leaf;
-	* @return <code>true</code> whether this right son is a leafe or <code>false</code> in otherwise.
-	*/
-	boolean  leftSonLeaf();
-	
+	 * this is the first case of insertion. this case start with balance a new node
+	 * inserted in a tree.
+	 */
+	RedBlackNode<P> redBlackBalancerCase1(RedBlackNode<P> returnNode);
+
+	/**
+	 * this is the second case of insertion.
+	 */
+	void redBlackBalancerCase2(RedBlackNode<P> returnNode);
+
+	/**
+	 * This is the thirt case of insertion.
+	 */
+	void redBlackBalancerCase3(RedBlackNode<P> returnNode);
+
+	/**
+	 * This is the fourth case of insertion.
+	 */
+	// TODO
+	void redBlackBalancerCase4(RedBlackNode<P> returnNode);
+
+	/**
+	 * this is the fifth case of insertion.
+	 */
+	// TODO
+	void redBlackBalancerCase5(RedBlackNode<P> returnNode);
+
+	/**
+	 * This method verify if this right son is a leaf;
+	 * 
+	 * @return <code>true</code> whether this right son is a leafe or
+	 *         <code>false</code> in otherwise.
+	 */
+	boolean rightSonLeaf();
+
+	/**
+	 * This method verify if this right son is a leaf;
+	 * 
+	 * @return <code>true</code> whether this right son is a leafe or
+	 *         <code>false</code> in otherwise.
+	 */
+	boolean leftSonLeaf();
+
 	/**
 	 * This method remove this node by the tree
 	 */
 	RedBlackNode<P> removeRB();
 	
+	/**
+	* Verify if the given node is  right child of this node
+	* @param nodo Node to be compare.
+	* @return <code>true</code>if given node is right child of <code>this</code> or <code>false</code> in otherwise.
+	*/
+	boolean isRightChild (RedBlackNode<P> node);
+	
+	/**
+	* Verify if the given node is left child of this node
+	* @param nodo Node to be compare.
+	* @return <code>true</code>if given node is left child of <code>this</code> or <code>false</code> in otherwise.
+	*/
+	boolean isLeftChild (RedBlackNode<P> node);
+	
+	/**
+	* Verify if this node is a leaf.
+	* @return <code>true</code> if this node is a leaf or <code>false</code> in otherwise.
+	*/
+	boolean isLeaf( );
 }

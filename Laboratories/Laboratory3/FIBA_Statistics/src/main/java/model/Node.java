@@ -11,11 +11,6 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 	private INode<D> father;
 
 	/**
-	 * This attribute represents the uncle node of this one.
-	 */
-	private INode<D> uncle;
-
-	/**
 	 * This attribute represents the left child node of this one.
 	 */
 	private INode<D> leftChild;
@@ -58,7 +53,6 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 	 */
 	public Node(Item<D> item, char color) {
 		this.father = null;
-		this.uncle = null;
 		this.leftChild = (RedBlackNode) new Node<>();
 		this.rightChild = (RedBlackNode) new Node<>();
 		this.color = color;
@@ -74,7 +68,6 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 		this.entryData = null;
 		this.color = RedBlackNode.BLACK_NODE;
 		this.father = null;
-		this.uncle = null;
 		this.leftChild = null;
 		this.rightChild = null;
 		
@@ -93,14 +86,37 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 	}
 
 	@Override
-	public void leftRotation() {
-		// TODO Auto-generated method stub
+	public IBalancedNode<D> leftRotation() {
+		if(this.rightSonLeaf()) {
+			return this;
+		}
+		
+		else {
+			
+			RedBlackNode<D> rigthChildAux = (RedBlackNode<D>) this.rightChild;
+			setRightChild(rigthChildAux.getleftChild());
+			rigthChildAux.setFather(this.father);
+			rigthChildAux.setLeftChild(this);
+			return rigthChildAux;
+		}
 
 	}
 
 	@Override
-	public void rightRotation() {
-		// TODO Auto-generated method stub
+	public IBalancedNode<D> rightRotation() {
+		if(this.leftSonLeaf()) {
+			
+			return this;
+		}
+		
+		else {
+			
+			RedBlackNode<D> leftChildAuxiliar = (RedBlackNode<D>) this.leftChild;
+			this.setLeftChild(leftChildAuxiliar.getRightChild());
+			leftChildAuxiliar.setFather(this.father);
+			leftChildAuxiliar.setRightChild(this);
+			return leftChildAuxiliar;
+		}
 
 	}
 
@@ -147,19 +163,7 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 	}
 
 	@Override
-	public INode<D> getUncle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setUncle(INode<D> newUncle) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public char getColor(int itemType) {
+	public char getColor() {
 		return this.color;
 	}
 
@@ -173,14 +177,6 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 	@Override
 	public BTSNode<D> insert(BTSNode<D> node) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public RedBlackNode<D> insert(RedBlackNode<D> node) {
-		// TODO Auto-generated method stub
-		
 		return null;
 	}
 
@@ -202,6 +198,245 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 	public void setItem(Item<D> item) {
 		this.entryData = item;
 		
+	}
+
+
+	@Override
+	public RedBlackNode<D> getNodewithEqualsValues(Item<D> item) throws ItemDoesNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public RedBlackNode<D> getNodeWithEqualsValuesAndSamePlayer(Item<D> item) throws ItemDoesNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean itemsHasSamePlayerAndValue(Item<D> item1, Item<D> item2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public RedBlackNode<D> getUncle() {
+		// TODO test it
+		IBalancedNode<D> fatherCast = (IBalancedNode<D>) this.father;
+		if(this.father==null || fatherCast.getFather()== null) {
+			return null;
+		}
+		
+		else {
+			
+			RedBlackNode<D> grandFatherCast = (RedBlackNode<D>) fatherCast.getFather();
+			RedBlackNode<D> fatherCastAgain = (RedBlackNode<D>) this.father;
+			if(grandFatherCast.isRightChild(fatherCastAgain)) {
+				return (RedBlackNode<D>) grandFatherCast.getleftChild();
+			} else {
+				return (RedBlackNode<D>) grandFatherCast.getRightChild();
+			}
+		}
+		
+	}
+
+
+	@Override
+	public boolean rightSonLeaf() {
+		return this.rightChild.getItem()== null;
+	}
+
+
+	@Override
+	public boolean leftSonLeaf() {
+		return this.leftChild.getItem()== null;
+	}
+
+
+	@Override
+	public RedBlackNode<D> removeRB() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public RedBlackNode<D> insert(RedBlackNode<D> node) {
+		// TODO test it
+		this.normalInsertion(node);
+		RedBlackNode<D> r = null;
+		node.redBlackBalancerCase1(r);
+		return r;
+	}
+
+
+	@Override
+	public void normalInsertion(RedBlackNode<D> node) {
+		// TODO test it
+		
+		if(this.entryData.compareTo(node.getItem())<0) {
+			
+			if(this.rightSonLeaf()) {
+				
+				this.rightChild = node;
+				node.setFather(this);
+			}else {
+				
+				RedBlackNode<D> cast = (RedBlackNode<D>) this.rightChild;
+				cast.normalInsertion(node);
+			}
+		}
+		
+		else {
+			
+			if(leftSonLeaf()) {
+				
+				this.leftChild = node;
+				node.setFather(this);
+			}else {
+				
+				RedBlackNode<D> cast = (RedBlackNode<D>) this.leftChild;
+				cast.normalInsertion(node);
+			}
+			
+		}
+		
+	}
+
+
+	@Override
+	public RedBlackNode<D> redBlackBalancerCase1(RedBlackNode<D> returnNode) {
+		// TODO test it
+		if(this.father==null) {
+			
+			this.color = RedBlackNode.BLACK_NODE;
+			returnNode = this;
+		}
+		
+		else {
+			redBlackBalancerCase2(returnNode);
+		}
+		
+		return returnNode;
+	}
+
+
+	@Override
+	public void redBlackBalancerCase2(RedBlackNode<D> returnNode) {
+		// TODO test it
+		RedBlackNode<D> fatherCast = (RedBlackNode<D>) this.father;
+		if(fatherCast.getColor()== RedBlackNode.RED_NODE) {
+			
+			this.redBlackBalancerCase3(returnNode);
+		}else {
+			
+			returnNode = null;
+		}
+		
+	}
+
+
+	@Override
+	public void redBlackBalancerCase3(RedBlackNode<D> returnNode) {
+		// TODO test it
+		RedBlackNode<D> fatherCast = (RedBlackNode<D>) this.father;
+		RedBlackNode<D> uncle = this.getUncle();
+		RedBlackNode<D> grandFather =  (RedBlackNode<D>) fatherCast.getFather();
+		
+		returnNode = null;
+		
+		if(!uncle.isLeaf() && uncle.getColor()== RedBlackNode.RED_NODE) {
+			
+			fatherCast.setColor(BLACK_NODE);
+			uncle.setColor(BLACK_NODE);
+			grandFather.setColor(RED_NODE);
+			grandFather.redBlackBalancerCase1(returnNode);
+		}
+		
+		else {
+			this.redBlackBalancerCase4(returnNode);
+		}
+	}
+
+
+	@Override
+	public void redBlackBalancerCase4(RedBlackNode<D> returnNode) {
+		// TODO test it
+		RedBlackNode<D> fatherCast = (RedBlackNode<D>) this.father;
+		RedBlackNode<D> grandFather =  (RedBlackNode<D>) fatherCast.getFather();
+		returnNode = null;
+		
+		if(fatherCast.isRightChild(this) && grandFather.isLeftChild(fatherCast)) {
+			
+			grandFather.setRightChild(fatherCast.leftRotation());
+			RedBlackNode<D> leftChildCast = (RedBlackNode<D>) this.leftChild;
+			leftChildCast.redBlackBalancerCase5(returnNode);
+		}
+		else if(fatherCast.isLeftChild(this) && grandFather.isRightChild(fatherCast)) {
+			
+			grandFather.setRightChild(fatherCast.rightRotation());
+			RedBlackNode<D> rightChildCast = (RedBlackNode<D>) this.rightChild;
+			rightChildCast.redBlackBalancerCase5(returnNode);
+		}else {
+			
+			this.redBlackBalancerCase5(returnNode);
+		}
+	}
+
+
+	@Override
+	public void redBlackBalancerCase5(RedBlackNode<D> returnNode) {
+		// TODO test it
+		RedBlackNode<D> fatherCast = (RedBlackNode<D>) this.father;
+		RedBlackNode<D> grandFather =  (RedBlackNode<D>) fatherCast.getFather();
+		RedBlackNode<D> grandGrandFather = (RedBlackNode<D>) grandFather.getFather();
+		fatherCast.setColor(BLACK_NODE);
+		fatherCast.setColor(RED_NODE);
+		
+		if(fatherCast.isLeftChild(this) && grandFather.isLeftChild(fatherCast)) {
+			
+			if(grandFather.getFather() == null) {
+				grandFather.rightRotation();
+			}else if (grandGrandFather.isRightChild(grandFather)) {
+				grandGrandFather.setRightChild(grandFather.rightRotation());
+			}else {
+				grandGrandFather.setLeftChild(grandFather.rightRotation());
+			}
+		}
+		
+		else {
+			
+			if(grandFather.getFather() == null) {
+				grandFather.leftRotation();
+			}else if(grandGrandFather.isRightChild(grandFather)) {
+				grandGrandFather.setRightChild(grandFather.leftRotation());
+			}else {
+				grandGrandFather.setLeftChild(grandFather.leftRotation());
+			}
+		}
+		
+		returnNode = (RedBlackNode<D>) this.father;
+	}
+
+
+	@Override
+	public boolean isRightChild(RedBlackNode<D> node) {
+		return this.rightChild == node;
+	}
+
+
+	@Override
+	public boolean isLeftChild(RedBlackNode<D> node) {
+		return this.leftChild == node;
+	}
+
+
+	@Override
+	public boolean isLeaf() {
+		return this.entryData== null;
 	}
 
 }

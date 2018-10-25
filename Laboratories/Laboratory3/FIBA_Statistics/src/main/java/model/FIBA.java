@@ -522,7 +522,6 @@ public class FIBA {
 		try {
 			result = generateReport(itemsArray);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -633,7 +632,7 @@ public class FIBA {
 		try {
 			result = generateReport(itemsArray);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
