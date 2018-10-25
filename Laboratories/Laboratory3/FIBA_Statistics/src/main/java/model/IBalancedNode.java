@@ -29,10 +29,10 @@ public interface IBalancedNode<P extends Number> extends INode<P> {
 	 * this method execute a left double Rotation. in this kind of tree, all rotation is, in part, only to values.
 	 */
 	
-	void leftDoubleRotation();
+	IBalancedNode<P> leftDoubleRotation();
 	
 	/**
 	 * this method execute a right double Rotation. in this kind of tree, all rotation is, in part, only to values.
 	 */
-	void rightDoubleRotation();
+	IBalancedNode<P> rightDoubleRotation();
 }

@@ -32,7 +32,8 @@ public class RedBlackTree extends BinarySearchTree {
 	 * 
 	 * @param Player
 	 */
-	public void addPlayerItems(Player player, int txtIndex) {
+	@Override
+	public void addPlayersItems(Player player, int txtIndex) {
 		// TODO test it
 
 		// star to add the first item.
