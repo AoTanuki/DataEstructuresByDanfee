@@ -73,6 +73,14 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 
 	}
 
+	/**
+	 * This constructor is using for avlnode y bts
+	 */
+	public Node (Item<D> item) {
+		this.entryData = item;
+		this.rightChild = null;
+		this.leftChild = null;
+	}
 	@Override
 	public INode<D> getFather() {
 		return this.father;
@@ -217,7 +225,7 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 	}
 
 	@Override
-	public AVLNode<D> insert(AVLNode<D> node) {
+	public AVLNode<D> insert(Item<D> item) {
 		// TODO Auto-generated method stub
 		return null;
 	}

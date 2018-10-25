@@ -32,6 +32,10 @@ public interface AVLNode<P extends Number> extends IBalancedNode<P> {
 	 * @param node the node to be inserted.
 	 * @return the new root of the of the tree or null whether did not appear any change.
 	 */
-    AVLNode<P> insert (AVLNode<P> node);
+    AVLNode<P> insert (Item<P> item);
 	
+    /**
+	 * This method remove this node by the tree
+	 */
+	AVLNode<P> removeAVL(Item<P> item);
 }

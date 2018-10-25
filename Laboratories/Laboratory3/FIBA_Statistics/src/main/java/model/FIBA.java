@@ -274,7 +274,7 @@ public class FIBA {
 			savePlayer(player, newIndex);
 
 			// save all index in the trees.
-			this.RBTree.addPlayerItems(player, newIndex);
+			this.RBTree.addPlayersItems(player, newIndex);
 			this.AVlTree.addPlayersItems(player,newIndex);
 			this.BTSTree.addPlayersItems(player,newIndex);
 
