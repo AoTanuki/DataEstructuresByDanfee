@@ -34,9 +34,10 @@ public class AVLTree extends BinarySearchTree {
     /**
      * This method save its corresponding items in itself by a given player. In this case, will be save  the field goals percentage and three point percentage of that given player.
      * @param player
+     * @throws Exception 
      */
     @Override
-    public void addPlayersItems(Player player,int txtIndex) {
+    public void addPlayersItems(Player player,int txtIndex) throws Exception {
         // TODO test it
     	Item<Double> freeThrowItem =new Item<Double>(player.getFreeThrowPercentage(), txtIndex);
     	Item<Integer> personalFoulsItem = new Item<Integer>(player.getPersonalFouls(), txtIndex);
@@ -47,14 +48,14 @@ public class AVLTree extends BinarySearchTree {
     	}
     	
     	else {
-    		this.rootFreeThrowPercentageIndex = this.rootFreeThrowPercentageIndex.insert(freeThrowItem);
+    		this.rootFreeThrowPercentageIndex = this.rootFreeThrowPercentageIndex.insertAVL(freeThrowItem);
     	}
     	
     	//Insert personal fouls item:
     	if(this.rootPersonalFoulIndex == null) {
     		this.rootPersonalFoulIndex = new Node<>(personalFoulsItem);
     	}else {
-    		this.rootPersonalFoulIndex = this.rootPersonalFoulIndex.insert(personalFoulsItem);
+    		this.rootPersonalFoulIndex = this.rootPersonalFoulIndex.insertAVL(personalFoulsItem);
     	}
     	this.weight++;
     }

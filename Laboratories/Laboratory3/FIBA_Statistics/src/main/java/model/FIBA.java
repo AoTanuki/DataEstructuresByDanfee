@@ -108,11 +108,11 @@ public class FIBA {
 	 * @param textURL  is the path to the file
 	 * @param textType define what kind of file will be readed.
 	 * @return return a string with the especify of success of the process.
-	 * @throws IOException
+	 * @throws Exception 
 	 * @throws PlayerAlredyAddedException this exception apears when a player is
 	 *                                    already added.
 	 */
-	public String readInformation(String textURL, char textType) throws IOException {
+	public String readInformation(String textURL, char textType) throws Exception {
 		// TODO test it
 
 		String result = "All players has added correctly";
@@ -214,11 +214,12 @@ public class FIBA {
 	 * @param orpercentage       is the offensive rebound percentage of this player.
 	 * @param turnoverPercentage is the turnover percentage of this player.
 	 * @return return a string with the especify of success of the process.
+	 * @throws Exception 
 	 * @throws IOException
 	 */
 	public String readInformation(String name, char gender, int age, int gamesPlayed, double minutesPlayed,
 			double fgpercentage, double tpfpercentage, double ftpecerntage, int personalFouls, double piestimate,
-			double orpercentage, double turnoverPercentage) {
+			double orpercentage, double turnoverPercentage) throws Exception {
 		// TODO test it
 		String result = "All players has added correctly";
 
@@ -240,10 +241,9 @@ public class FIBA {
 	 * This method add a player in the system.
 	 * 
 	 * @param player the new player
-	 * @throws PlayerAlredyAddedException
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	public void addPlayer(Player player) throws PlayerAlredyAddedException, IOException {
+	public void addPlayer(Player player) throws Exception {
 		// TODO test it
 
 		if (playersAdded.containsKey(player)) {

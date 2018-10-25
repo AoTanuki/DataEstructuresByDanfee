@@ -92,22 +92,7 @@ public interface RedBlackNode<P extends Number> extends IBalancedNode<P> {
 	// TODO
 	void redBlackBalancerCase5(RedBlackNode<P> returnNode);
 
-	/**
-	 * This method verify if this right son is a leaf;
-	 * 
-	 * @return <code>true</code> whether this right son is a leafe or
-	 *         <code>false</code> in otherwise.
-	 */
-	boolean rightSonLeaf();
-
-	/**
-	 * This method verify if this right son is a leaf;
-	 * 
-	 * @return <code>true</code> whether this right son is a leafe or
-	 *         <code>false</code> in otherwise.
-	 */
-	boolean leftSonLeaf();
-
+	
 	/**
 	 * This method remove this node by the tree
 	 */

@@ -91,5 +91,20 @@ public interface INode<P extends Number> {
 	
 	INode<P> getMinimun();
 	
-	
+	/**
+	 * This method verify if this right son is a leaf;
+	 * 
+	 * @return <code>true</code> whether this right son is a leafe or
+	 *         <code>false</code> in otherwise.
+	 */
+	boolean rightSonLeaf();
+
+	/**
+	 * This method verify if this right son is a leaf;
+	 * 
+	 * @return <code>true</code> whether this right son is a leafe or
+	 *         <code>false</code> in otherwise.
+	 */
+	boolean leftSonLeaf();
+
 }
