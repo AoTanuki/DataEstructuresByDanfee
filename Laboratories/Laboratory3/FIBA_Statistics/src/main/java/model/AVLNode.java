@@ -39,8 +39,9 @@ public interface AVLNode<P extends Number> extends IBalancedNode<P> {
 	
     /**
 	 * This method remove this node by the tree
+     * @throws ItemDoesNotFoundException 
 	 */
-	AVLNode<P> removeAVL(Item<P> item);
+	AVLNode<P> removeAVL(Item<P> item) throws ItemDoesNotFoundException;
 	
 	/**
 	 * This methdo insert an item.
@@ -71,4 +72,24 @@ public interface AVLNode<P extends Number> extends IBalancedNode<P> {
 	 * @return
 	 */
 	AVLNode<P> AVLLeftBalance();
+	
+	/**
+	 * This method remove 
+	 * @param item
+	 * @param result
+	 * @throws ItemDoesNotFoundException 
+	 */
+	void auxiliarRemoveAVL(Item<P> item, Node<P>.Result result) throws ItemDoesNotFoundException;
+	
+	/**
+	 * This method balance tree when a item is removed
+	 * @param result
+	 */
+	void AVLRemoveLeftBalance(Node<P>.Result result);
+	
+	/**
+	 * This method balance tree when a items is removed
+	 * @param result
+	 */
+	void AVLRemoveRightBalance(Node<P>.Result result);
 }
