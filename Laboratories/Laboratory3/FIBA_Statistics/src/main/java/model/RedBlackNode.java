@@ -131,5 +131,70 @@ public interface RedBlackNode<P extends Number> extends IBalancedNode<P> {
 	* Verify if this node is a leaf.
 	* @return <code>true</code> if this node is a leaf or <code>false</code> in otherwise.
 	*/
-	boolean isLeaf( );
+	public boolean isLeaf( );
+	
+	/**
+	 * This method change the information of two nodes.
+	 */
+	void swampItems(RedBlackNode<P> node);
+	
+	/**
+	 * this method keeps all properties in the tree when a node is removed.
+	 */
+	void removeBalancer(RedBlackNode<P> returnNode);
+	
+	/**
+	 * this is the 1 case of remove balancer
+	 */
+	void removeBalancerCase1(RedBlackNode<P> returnNode);
+	
+	/**
+	 * this is the 2 case of remove balancer
+	 */
+	void removeBalancerCase2(RedBlackNode<P> returnNode);
+
+	/**
+	 * this is the 3 case of remove balancer
+	 */
+	void removeBalancerCase3(RedBlackNode<P> returnNode);
+	
+	/**
+	 * this is the 4 case of remove balancer
+	 */
+	void removeBalancerCase4(RedBlackNode<P> returnNode);
+	
+	/**
+	 * this is the 5 case of remove balancer
+	 */
+	void removeBalancerCase5(RedBlackNode<P> returnNode);
+	
+	/**
+	 * this is the 6 case of remove balancer
+	 */
+	void removeBalancerCase6(RedBlackNode<P> returnNode);
+
+	/**
+	 * This methods change both childs by leaf
+	 */
+	void removeChilds();
+	
+	/**
+	 * this method returns the brother of this node
+	 */
+	RedBlackNode<P> getBrother();
+	
+	/**
+	 *  This method verify if childs of this node are black
+	 */
+	boolean blackChilds();
+	
+	/**
+	 * This method veryfy if left child is black
+	 */
+	boolean leftChildBlack();
+	
+	/**
+	 * This method veryfy if right child is black
+	 */
+	boolean rightChildBlack();
 }

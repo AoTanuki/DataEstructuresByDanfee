@@ -32,7 +32,7 @@ public class BinarySearchTree implements Serializable{
      * This method save its corresponding items in itself by a given player. In this case, will be save  the field goals percentage, three point percentage, free throw percentage, personal fouls and the name of that given player.
      * @param player Player
      */
-    public void addPlayersItems(Player player) {
+    public void addPlayersItems(Player player, int txtFile) {
         // TODO implement here
     }
 
@@ -80,7 +80,7 @@ public class BinarySearchTree implements Serializable{
      * @param searchedPlayer 
      * @return
      */
-    public void removePlayer(Player searchedPlayer)throws EmptyTreeException{
+    public void removePlayer(Player searchedPlayer, int txtIndex)throws EmptyTreeException, ItemDoesNotFoundException{
         // TODO implement here
        
     }
