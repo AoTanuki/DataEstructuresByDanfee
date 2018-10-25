@@ -60,7 +60,7 @@ public interface INode<P extends Number> {
 	* @return the node that satisfy that condition
 	* @throws ItemDoesNotFoundException appears when that node did not founded.
 	*/
-	RedBlackNode<P> getNodewithEqualsValues( Item<P> item ) throws ItemDoesNotFoundException;
+	INode<P> getNodewithEqualsValues( Item<P> item ) throws ItemDoesNotFoundException;
 	
 	/**
 	* This method search a node that contains same value than given item and contains the same file index.
@@ -69,7 +69,7 @@ public interface INode<P extends Number> {
 	* @return the node that satisfy that condition
 	* @throws ItemDoesNotFoundException appears when that node did not founded.
 	*/
-	RedBlackNode<P> getNodeWithEqualsValuesAndSamePlayer(Item<P> item) throws ItemDoesNotFoundException;
+	INode<P> getNodeWithEqualsValuesAndSamePlayer(Item<P> item) throws ItemDoesNotFoundException;
 	
 	/**
 	 * This method verify if both given items contains the same value and the same file index
@@ -78,4 +78,18 @@ public interface INode<P extends Number> {
 	 * @return true if both items have the same value and txtfile index, false in otherwise.
 	 */
 	boolean itemsHasSamePlayerAndValue(Item<P> item1, Item<P> item2);
+	
+	/**
+	 *  this method returns the maximun value of this node.
+	 */
+	
+	INode<P> getMaximun();
+	
+	/**
+	 * This method returns the minimun value of this node.
+	 */
+	
+	INode<P> getMinimun();
+	
+	
 }

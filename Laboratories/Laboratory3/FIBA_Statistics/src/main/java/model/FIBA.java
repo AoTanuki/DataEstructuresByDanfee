@@ -289,15 +289,19 @@ public class FIBA {
 	 * 
 	 * @param the name of the playar that would be removed.
 	 * @return the result of the process.
+	 * @throws ItemDoesNotFoundException 
+	 * @throws EmptyTreeException 
 	 */
-	public String removePlayer(String name) {
+	public String removePlayer(String name) throws EmptyTreeException, ItemDoesNotFoundException {
 		// TODO implement here
 		String result = "the player " + name + " has been eliminate correctly";
-
+		
 		// exception
 
 		// verify if the player is already added
 		if (playersAdded.containsKey(name)) {
+			
+			int txtIndex = playersAdded.get(name);
 			// get the player
 			Player player = null;
 			try {
@@ -313,9 +317,9 @@ public class FIBA {
 
 			// TODO correct this method to support all exception in all tree remove's
 			// finally, remove for all trees.
-			this.AVlTree.removePlayer(player);
-			this.BTSTree.removePlayer(player);
-			this.RBTree.removePlayer(player);
+			this.AVlTree.removePlayer(player, txtIndex);
+			this.BTSTree.removePlayer(player,txtIndex);
+			this.RBTree.removePlayer(player, txtIndex);
 
 		} else {
 			result = "the player " + name + " does not finded in our system";
@@ -522,7 +526,6 @@ public class FIBA {
 		try {
 			result = generateReport(itemsArray);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -633,7 +636,7 @@ public class FIBA {
 		try {
 			result = generateReport(itemsArray);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 

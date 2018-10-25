@@ -75,6 +75,7 @@ public class RedBlackTree extends BinarySearchTree {
 	 * @throws EmptyTreeException it appears when the tree is empty in any root.
 	 * @throws ItemDoesNotFoundException  it appears when an item would'n founded.
 	 */
+	@Override
 	public void removePlayer(Player searchedPlayer, int txtIndex) throws EmptyTreeException, ItemDoesNotFoundException {
 
 		// TODO test it
@@ -93,7 +94,8 @@ public class RedBlackTree extends BinarySearchTree {
 			
 		} 
 		else {
-			RedBlackNode<Double> r2 = this.rootFieldGoalsIndex.getNodeWithEqualsValuesAndSamePlayer(fieldGoalsPercentageItem).removeRB();
+			RedBlackNode<Double> cast = (RedBlackNode<Double>) this.rootFieldGoalsIndex.getNodeWithEqualsValuesAndSamePlayer(fieldGoalsPercentageItem);
+			RedBlackNode<Double> r2 = cast.removeRB();
 			this.rootFieldGoalsIndex = r2!=null && r2.getFather()==null? r2:this.rootFieldGoalsIndex;
 		}
 		
@@ -109,7 +111,8 @@ public class RedBlackTree extends BinarySearchTree {
 			
 		} 
 		else {
-			RedBlackNode<Double> r2 = this.rootThreePointsIndex.getNodeWithEqualsValuesAndSamePlayer(threePointsFieldItem).removeRB();
+			RedBlackNode<Double> cast = (RedBlackNode<Double>) this.rootThreePointsIndex.getNodeWithEqualsValuesAndSamePlayer(threePointsFieldItem);
+			RedBlackNode<Double> r2 = cast.removeRB();
 			this.rootThreePointsIndex = r2!=null && r2.getFather()==null? r2:this.rootThreePointsIndex;
 		}
 		
