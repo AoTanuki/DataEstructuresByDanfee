@@ -71,6 +71,7 @@ public class AVLTree extends BinarySearchTree {
     	Item<Double> freeThrowItem =new Item<Double>(searchedPlayer.getFreeThrowPercentage(), txtIndex);
     	Item<Integer> personalFoulsItem = new Item<Integer>(searchedPlayer.getPersonalFouls(), txtIndex);
     	
+    	
     	//remove freeThrow percentage:
     	if(this.rootFreeThrowPercentageIndex==null) {
     		this.rootFreeThrowPercentageIndex = this.rootFreeThrowPercentageIndex.removeAVL(freeThrowItem);

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public interface INode<P extends Number> {
 
 	/**
@@ -107,4 +109,7 @@ public interface INode<P extends Number> {
 	 */
 	boolean leftSonLeaf();
 
+	ArrayList<Item<Number>> searchValueRange(Number initial, Number finalrange, int type);
+	
+	ArrayList<Item<Number>> searchValue(Number value, int type);
 }

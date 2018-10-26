@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSNode<D>, Serializable {
@@ -154,7 +155,7 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 	public IBalancedNode<D> leftDoubleRotation() {
 		// TODO Auto-generated method stub
 		AVLNode<D> cast = (AVLNode<D>) this.leftChild;
-		this.leftChild =cast.leftRotation();
+		this.leftChild = cast.leftRotation();
 		return rightRotation();
 
 	}
@@ -223,11 +224,7 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 
 	}
 
-	@Override
-	public BTSNode<D> insert(BTSNode<D> node) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public Item<D> getItem() {
@@ -332,7 +329,7 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 	@Override
 	public void setBalanceFactor(int balance) {
 		this.balancedFactor = balance;
-		
+
 	}
 
 	@Override
@@ -799,31 +796,31 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 				this.rightChild = result.result;
 
 				if (result.hightDiference) {
-					
+
 					switch (this.balancedFactor) {
 					case LEFT_BALANCE:
-						 this.balancedFactor = BALANCE;
-						 result.hightDiference = false;
-						 result.result = this;
+						this.balancedFactor = BALANCE;
+						result.hightDiference = false;
+						result.result = this;
 						break;
 
 					case BALANCE:
 						this.balancedFactor = BALANCE;
 						result.result = this;
 						break;
-					
+
 					case RIGHT_BALANCE:
 						result.hightDiference = false;
 						result.result = AVLRightBalance();
 						break;
 					}
 				}
-				
+
 				else {
-					result.result =this;
+					result.result = this;
+				}
 			}
 		}
-	}
 
 	}
 
@@ -831,16 +828,16 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 		// TODO test it
 		AVLNode<D> rightChildCast = (AVLNode<D>) this.rightChild;
 		AVLNode<D> leftChildCast = (AVLNode<D>) this.leftChild;
-		
-		if(rightChildCast.getBalanceFactor() == RIGHT_BALANCE) {
+
+		if (rightChildCast.getBalanceFactor() == RIGHT_BALANCE) {
 			this.balancedFactor = BALANCE;
 			rightChildCast.setBalanceFactor(BALANCE);
 			return (AVLNode<D>) this.leftRotation();
-		}else {
-			
+		} else {
+
 			AVLNode<D> cast = (AVLNode<D>) this.rightChild.getleftChild();
 			switch (cast.getBalanceFactor()) {
-			
+
 			case LEFT_BALANCE:
 				this.balancedFactor = BALANCE;
 				rightChildCast.setBalanceFactor(RIGHT_BALANCE);
@@ -850,7 +847,7 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 				rightChildCast.setBalanceFactor(BALANCE);
 				break;
 			case RIGHT_BALANCE:
-				this.balancedFactor =LEFT_BALANCE;
+				this.balancedFactor = LEFT_BALANCE;
 				rightChildCast.setBalanceFactor(BALANCE);
 				break;
 			}
@@ -863,15 +860,14 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 		// TODO test it
 		AVLNode<D> rightChildCast = (AVLNode<D>) this.rightChild;
 		AVLNode<D> leftChildCast = (AVLNode<D>) this.leftChild;
-		
-		if(leftChildCast.getBalanceFactor() == BALANCE) {
-			
+
+		if (leftChildCast.getBalanceFactor() == BALANCE) {
+
 			this.balancedFactor = BALANCE;
 			leftChildCast.setBalanceFactor(BALANCE);
-			
+
 			return (AVLNode<D>) rightRotation();
-		}
-		else {
+		} else {
 			AVLNode<D> cast = (AVLNode<D>) this.leftChild.getRightChild();
 			switch (cast.getBalanceFactor()) {
 			case LEFT_BALANCE:
@@ -883,7 +879,7 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 				this.balancedFactor = BALANCE;
 				leftChildCast.setBalanceFactor(BALANCE);
 				break;
-			
+
 			case RIGHT_BALANCE:
 				this.balancedFactor = BALANCE;
 				leftChildCast.setBalanceFactor(LEFT_BALANCE);
@@ -892,85 +888,78 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 			cast.setBalanceFactor(BALANCE);
 			return (AVLNode<D>) this.leftDoubleRotation();
 		}
-		
+
 	}
 
 	@Override
 	public AVLNode<D> removeAVL(Item<D> item) throws ItemDoesNotFoundException {
 		// TODO test it
 		Result result = new Result(null, false);
-		auxiliarRemoveAVL(item,result);
-		
+		auxiliarRemoveAVL(item, result);
+
 		return result.result;
 	}
 
-	
 	public void auxiliarRemoveAVL(Item<D> item, Result result) throws ItemDoesNotFoundException {
 		// TODO test it
 		int compareResult = this.entryData.compareTo(item);
 		AVLNode<D> rightChildCast = (AVLNode<D>) this.rightChild;
 		AVLNode<D> leftChildCast = (AVLNode<D>) this.leftChild;
-		
-		if(compareResult ==0) {
-			
-			if(itemsHasSamePlayerAndValue(this.entryData, item)) {
-				if(this.leftChild == null && this.rightChild == null) {
+
+		if (compareResult == 0) {
+
+			if (itemsHasSamePlayerAndValue(this.entryData, item)) {
+				if (this.leftChild == null && this.rightChild == null) {
 					result.hightDiference = true;
 					result.result = this;
-				}
-				else if(this.leftChild == null) {
+				} else if (this.leftChild == null) {
 					result.result = (AVLNode<D>) this.rightChild;
 					result.hightDiference = true;
-				}
-				else {
+				} else {
 					AVLNode<D> reemplace = (AVLNode<D>) this.leftChild.getMaximun();
 					item = reemplace.getItem();
 					leftChildCast.auxiliarRemoveAVL(item, result);
 					this.leftChild = result.result;
-					
-					if(result.hightDiference) {
-						AVLRemoveRightBalance( result);
-					}
-					else {
+
+					if (result.hightDiference) {
+						AVLRemoveRightBalance(result);
+					} else {
 						result.result = this;
 					}
 				}
-			}else if(this.rightChild!=null) {
-				
+			} else if (this.rightChild != null) {
+
 				AVLNode<D> cast = (AVLNode<D>) this.rightChild;
 				cast.auxiliarRemoveAVL(item, result);
-			}else {
+			} else {
 				throw new ItemDoesNotFoundException("this element has not founded in the tree");
 			}
-			
-		}
-		else if(compareResult>0){
-			
-			if(this.leftChild==null) {
+
+		} else if (compareResult > 0) {
+
+			if (this.leftChild == null) {
 				throw new ItemDoesNotFoundException("this element has not founded in the tree");
 			}
-			
+
 			leftChildCast.auxiliarRemoveAVL(item, result);
 			this.leftChild = result.result;
-			
-			if(result.hightDiference){
+
+			if (result.hightDiference) {
 				this.AVLRemoveRightBalance(result);
-			}
-			else {
+			} else {
 				result.result = this;
 			}
-		}
-		else {
-			
-			if(this.rightChild == null) {
+		} else {
+
+			if (this.rightChild == null) {
 				throw new ItemDoesNotFoundException("this element has not founded in the tree");
 			}
 			rightChildCast.auxiliarRemoveAVL(item, result);
 			this.rightChild = result.result;
-			
-			if(result.hightDiference) {
+
+			if (result.hightDiference) {
 				this.AVLRemoveLeftBalance(result);
-			}else {
+			} else {
 				result.result = this;
 			}
 		}
@@ -980,39 +969,37 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 		// TODO test it
 		AVLNode<D> rightChildCast = (AVLNode<D>) this.rightChild;
 		AVLNode<D> leftChildCast = (AVLNode<D>) this.leftChild;
-		
+
 		switch (this.balancedFactor) {
 		case LEFT_BALANCE:
-			
-			if(leftChildCast.getBalanceFactor()!= RIGHT_BALANCE) {
+
+			if (leftChildCast.getBalanceFactor() != RIGHT_BALANCE) {
 				result.result = (AVLNode<D>) this.rightRotation();
-				
-				if(result.result.getBalanceFactor()==BALANCE) {
+
+				if (result.result.getBalanceFactor() == BALANCE) {
 					result.result.setBalanceFactor(RIGHT_BALANCE);
 					AVLNode<D> cast = (AVLNode<D>) result.result.getRightChild();
 					cast.setBalanceFactor(LEFT_BALANCE);
-					result.hightDiference =false;
-				}else {
+					result.hightDiference = false;
+				} else {
 					result.result.setBalanceFactor(BALANCE);
 					AVLNode<D> cast = (AVLNode<D>) result.result.getRightChild();
 					cast.setBalanceFactor(BALANCE);
 				}
-			}
-			else {
+			} else {
 				result.result = (AVLNode<D>) this.leftDoubleRotation();
-				if(result.result.getBalanceFactor()== LEFT_BALANCE) {
+				if (result.result.getBalanceFactor() == LEFT_BALANCE) {
 					AVLNode<D> cast = (AVLNode<D>) result.result.getRightChild();
 					cast.setBalanceFactor(RIGHT_BALANCE);
-				}
-				else {
+				} else {
 					AVLNode<D> cast = (AVLNode<D>) result.result.getRightChild();
 					cast.setBalanceFactor(BALANCE);
 				}
-				
-				if(result.result.getBalanceFactor()== RIGHT_BALANCE) {
+
+				if (result.result.getBalanceFactor() == RIGHT_BALANCE) {
 					AVLNode<D> cast = (AVLNode<D>) result.result.getleftChild();
 					cast.setBalanceFactor(LEFT_BALANCE);
-				}else {
+				} else {
 					AVLNode<D> cast = (AVLNode<D>) result.result.getleftChild();
 					cast.setBalanceFactor(BALANCE);
 				}
@@ -1023,15 +1010,15 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 		case BALANCE:
 			this.balancedFactor = LEFT_BALANCE;
 			result.hightDiference = false;
-			result.result = this;			
+			result.result = this;
 			break;
-			
+
 		case RIGHT_BALANCE:
 			this.balancedFactor = BALANCE;
 			result.result = this;
 			break;
 		}
-		
+
 	}
 
 	public void AVLRemoveRightBalance(Result result) {
@@ -1049,38 +1036,34 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 			result.hightDiference = false;
 			result.result = this;
 			break;
-			
+
 		case RIGHT_BALANCE:
-			if(rightChildCast.getBalanceFactor()!=LEFT_BALANCE) {
+			if (rightChildCast.getBalanceFactor() != LEFT_BALANCE) {
 				result.result = (AVLNode<D>) this.leftRotation();
-				
-				if(result.result.getBalanceFactor() == BALANCE) {
+
+				if (result.result.getBalanceFactor() == BALANCE) {
 					result.result.setBalanceFactor(LEFT_BALANCE);
 					AVLNode<D> cast = (AVLNode<D>) result.result.getleftChild();
 					cast.setBalanceFactor(RIGHT_BALANCE);
 					result.hightDiference = false;
-				}
-				else {
+				} else {
 					result.result.setBalanceFactor(BALANCE);
 					AVLNode<D> cast = (AVLNode<D>) result.result.getleftChild();
 					cast.setBalanceFactor(BALANCE);
 				}
-			}
-			else {
+			} else {
 				result.result = (AVLNode<D>) this.rightDoubleRotation();
-				if(result.result.getBalanceFactor()== RIGHT_BALANCE) {
+				if (result.result.getBalanceFactor() == RIGHT_BALANCE) {
 					AVLNode<D> cast = (AVLNode<D>) result.result.getleftChild();
 					cast.setBalanceFactor(LEFT_BALANCE);
-				}
-				else {
+				} else {
 					AVLNode<D> cast = (AVLNode<D>) result.result.getleftChild();
 					cast.setBalanceFactor(BALANCE);
 				}
-				if(result.result.getBalanceFactor() == LEFT_BALANCE) {
+				if (result.result.getBalanceFactor() == LEFT_BALANCE) {
 					AVLNode<D> cast = (AVLNode<D>) result.result.getRightChild();
 					cast.setBalanceFactor(RIGHT_BALANCE);
-				}
-				else {
+				} else {
 					AVLNode<D> cast = (AVLNode<D>) result.result.getRightChild();
 					cast.setBalanceFactor(BALANCE);
 				}
@@ -1125,6 +1108,100 @@ public class Node<D extends Number> implements AVLNode<D>, RedBlackNode<D>, BTSN
 			result = result;
 			hightDiference = highDiference;
 		}
+	}
+
+	@Override
+	public ArrayList<Item<Number>> searchValueRange(Number initial, Number finalrange, int type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Item<Number>> searchValue(Number value, int type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insertABB(Item<D> item) {
+		// TODO
+		int result = this.entryData.compareTo(item);
+
+		if (result == 0) {
+			if (itemsHasSamePlayerAndValue(this.entryData, item)) {
+				if (this.rightChild == null) {
+					this.rightChild = new Node<>(entryData);
+				} else {
+					BTSNode<D> cast = (BTSNode<D>) this.rightChild;
+					cast.insertABB(item);
+
+				}
+			}
+		} else if (result > 0) {
+			if (this.leftChild == null) {
+				this.leftChild = new Node<>(item);
+			}else {
+				BTSNode<D> cast = (BTSNode<D>) this.leftChild;
+				cast.insertABB(item);
+			}
+		}else {
+			
+			if(this.rightChild== null) {
+				this.rightChild = new Node<>(item);
+			}else
+			{
+				BTSNode<D> cast = (BTSNode<D>) this.rightChild;
+				cast.insertABB(item);
+			}
+		}
+
+	}
+
+	@Override
+	public BTSNode<D> removeABB(Item<D> item) throws ItemDoesNotFoundException {
+		// TODO test it
+		
+		int result = this.entryData.compareTo(item);
+		
+		if(result == 0) {
+			if(itemsHasSamePlayerAndValue(this.entryData, item)) {
+				if(this.leftChild== null) {
+					return (BTSNode<D>) this.rightChild;
+				}else if(this.rightChild== null) {
+					return (BTSNode<D>) this.leftChild;
+				}else {
+					item = this.leftChild.getMaximun().getItem();
+					BTSNode<D> cast = (BTSNode<D>) this.leftChild;
+					this.leftChild = cast.removeABB(item);
+				}
+			}else {
+				if(this.rightChild!= null) {
+					BTSNode<D> cast = (BTSNode<D>) this.rightChild;
+					cast.removeABB(item);
+					return this;
+				}else {
+					throw new ItemDoesNotFoundException ("item has not found");
+				}
+			}
+		}else if (result>0) {
+			if(this.leftChild==null) {
+				throw new ItemDoesNotFoundException();
+			}else {
+				BTSNode<D> cast = (BTSNode<D>) this.leftChild;
+				this.leftChild = cast.removeABB(item);
+				return this;
+			}
+		}
+		else {
+			if(this.rightChild== null) {
+				throw new ItemDoesNotFoundException();
+			}else {
+				BTSNode<D> cast = (BTSNode<D>) this.rightChild;
+				this.rightChild = cast.removeABB(item);
+				return this;
+			}
+		}
+		return null;
 	}
 
 }

@@ -28,5 +28,13 @@ public interface BTSNode<P extends Number> extends INoBalancedNode<P> {
 	 * @param node the node to be inserted.
 	 * @return the new root of the of the tree or null whether did not appear any change.
 	 */
-	BTSNode<P> insert (BTSNode<P> node);
+	void insertABB (Item<P> item);
+	
+	/**
+	 * 
+	 * @param item
+	 * @return
+	 * @throws ItemDoesNotFoundException 
+	 */
+	BTSNode<P> removeABB (Item<P> item) throws ItemDoesNotFoundException;
 }
